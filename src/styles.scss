@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~normalize.css";
+@import "~@angular/material/theming";
+@import "./app/shared/variables";
+
+@include mat-core();
+
+//$shufyi-frontend-primary: mat-palette($mat-indigo);
+//$shufyi-frontend-accent: mat-palette($mat-pink, A200, A100, A400);
+$shufyi-frontend-primary: mat-palette($mat-blue, A200, A100, A400);
+$shufyi-frontend-accent: mat-palette($mat-blue);
+$shufyi-frontend-warn: mat-palette($mat-red);
+
+$shufyi-frontend-theme: mat-light-theme($shufyi-frontend-primary, $shufyi-frontend-accent, $shufyi-frontend-warn);
+
+@include angular-material-theme($shufyi-frontend-theme);
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  background: map_get($mat-grey, 100);
+}
+
+.layout-container {
+  width: $container-width;
+  margin: 0 auto;
+}

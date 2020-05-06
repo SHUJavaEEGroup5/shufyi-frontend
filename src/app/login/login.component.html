@@ -1,0 +1,34 @@
+<app-layout-content>
+  <app-layout-content-main>
+    <app-layout-card>
+      <mat-card-title>登录</mat-card-title>
+      <mat-card-content>
+        <form>
+          <div>
+            <mat-form-field>
+              <mat-label>用户名或邮箱</mat-label>
+              <input matInput type="text">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <mat-label>密码</mat-label>
+              <input matInput type="password">
+            </mat-form-field>
+          </div>
+          <div class="form__submit-container">
+            <button color="primary" mat-raised-button>登录</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </app-layout-card>
+  </app-layout-content-main>
+  <app-layout-content-aside>
+    <app-layout-card>
+      <div class="aside-card__inner">
+        <span>没有账号？</span>
+        <a color="accent" mat-stroked-button routerLink="/signup">立即注册</a>
+      </div>
+    </app-layout-card>
+  </app-layout-content-aside>
+</app-layout-content>

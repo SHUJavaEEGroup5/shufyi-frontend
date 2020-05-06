@@ -1,0 +1,39 @@
+@import "~@angular/material/theming";
+@import "../variables";
+
+.app-layout-header {
+  @include mat-elevation(4, $mat-elevation-color, 0.1);
+
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: $container-width;
+  height: $nav-height;
+  background: white;
+
+  .layout-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    height: $nav-height;
+    padding: 0 12px;
+
+    h1 {
+      font-size: 20px;
+      display: inline-block;
+      margin: 0;
+      color: $dark-primary-text;
+    }
+
+    a {
+      margin-left: 4px;
+    }
+
+    .spacer {
+      flex-grow: 1;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<app-layout-content>
+  <app-layout-content-main>
+    <app-layout-card>
+      <mat-card-title>注册</mat-card-title>
+      <mat-card-content>
+        <form>
+          <div>
+            <mat-form-field>
+              <mat-label>输入学校邮箱</mat-label>
+              <input matInput type="email">
+            </mat-form-field>
+          </div>
+          <div class="form__submit-container">
+            <button color="primary" mat-raised-button>下一步</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </app-layout-card>
+  </app-layout-content-main>
+  <app-layout-content-aside>
+    <app-layout-card>
+      <div class="aside-card__inner">
+        <span>已经有账号了？</span>
+        <a color="accent" mat-stroked-button routerLink="/login">立即登录</a>
+      </div>
+    </app-layout-card>
+  </app-layout-content-aside>
+</app-layout-content>
