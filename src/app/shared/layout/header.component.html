@@ -5,7 +5,8 @@
     <!--    <a mat-flat-button routerLink="/">专选</a>-->
     <!--    <a mat-flat-button routerLink="/">核通/通选</a>-->
     <div class="spacer"></div>
-    <a color="primary" mat-stroked-button routerLink="/login">登录</a>
-    <a color="primary" mat-flat-button routerLink="/signup">注册</a>
+    {{ user && user.username }}
+    <a *ngIf="user == null" color="primary" mat-stroked-button routerLink="/login">登录</a>
+    <a *ngIf="user == null" color="primary" mat-flat-button routerLink="/signup">注册</a>
   </div>
 </header>

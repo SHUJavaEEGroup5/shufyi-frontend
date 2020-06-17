@@ -1,0 +1,73 @@
+<app-layout-content-fluid>
+  <app-layout-card-fluid class="course-meta-card">
+    <app-layout-content>
+      <app-layout-content-main class="course-meta-wrapper">
+        <div class="course-actions-group">
+          <button color="accent" mat-raised-button>我要评分</button>
+        </div>
+        <h1 class="course-name">{{ data.courseName }}</h1>
+        <h2 class="course-name-en">{{ data.courseNameEn }}</h2>
+        <dl>
+          <dt>课程号：</dt>
+          <dd>{{ data.courseId }}</dd>
+          <dt>学分数：</dt>
+          <dd>{{ data.credits }}</dd>
+          <dt>开课学院：</dt>
+          <dd>{{ data.college }}</dd>
+          <dt>课程类型：</dt>
+          <dd>{{ data.type }}</dd>
+        </dl>
+      </app-layout-content-main>
+      <app-layout-content-aside class="course-meta-wrapper">
+        <h1>10.0 <small>★ ★ ★ ★ ★</small></h1>
+        详细评分
+      </app-layout-content-aside>
+    </app-layout-content>
+  </app-layout-card-fluid>
+</app-layout-content-fluid>
+<app-layout-content class="layout-content-2">
+  <app-layout-content-main>
+    <app-layout-card>
+      发表你的看法
+    </app-layout-card>
+    <app-layout-card *ngFor="let i of [1, 2, 3]" class="review-card">
+      <mat-card-header class="review-card__meta">
+        <img alt="某某的头像" mat-card-avatar src="https://placekitten.com/200/200" />
+        <mat-card-title>
+          一只无名的小猫{{ i }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          <dl>
+            <dt>选课时间：</dt>
+            <dd>19-20春</dd>
+            <dt>教师：</dt>
+            <dd>邹国兵</dd>
+            <dt>评价：</dt>
+            <dd>★ ★ ★ ★ ★</dd>
+          </dl>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>超喜欢邹老师的，上课上得好，说话又好听！（</p>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button color="primary" mat-button>有用</button>
+        <button color="accent" mat-button>评论</button>
+      </mat-card-actions>
+    </app-layout-card>
+  </app-layout-content-main>
+  <app-layout-content-aside>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of data.meta; let i = index" [expanded]="i == 0"
+                           class="course-meta-list-item">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ item.name }}</mat-panel-title>
+          <mat-panel-description>{{ item.nameEn }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="course-meta-list-item__content">{{ item.content }}</p>
+        <p *ngIf="item.contentEn != null" class="course-meta-list-item__content-en">{{ item.contentEn }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </app-layout-content-aside>
+</app-layout-content>

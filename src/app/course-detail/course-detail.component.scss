@@ -1,0 +1,99 @@
+@import "~@angular/material/theming";
+
+.course-meta-card {
+  .course-meta-wrapper {
+    padding: 12px 24px;
+  }
+
+  .course-name {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    color: map-get($mat-blue-grey, 600);
+  }
+
+  .course-name-en {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 12px;
+    color: map-get($mat-blue-grey, 300);
+  }
+
+  .course-actions-group {
+    float: right;
+  }
+
+  dl {
+    dt, dd {
+      display: inline-block;
+    }
+
+    dt {
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0 1.5em 0 0;
+    }
+
+    dd:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.layout-content-2 {
+  margin-top: 0;
+}
+
+.review-card {
+  .review-card__meta {
+    mat-card-title {
+      font-size: 15px;
+      margin-bottom: 9px;
+    }
+
+    mat-card-subtitle {
+      font-size: 13px;
+    }
+
+    mat-card-content {
+      font-size: 15px;
+    }
+
+    dl {
+      margin: 0;
+
+      dt, dd {
+        display: inline-block;
+      }
+
+      dt {
+        font-weight: 700;
+      }
+
+      dd {
+        margin: 0 1em 0 0;
+      }
+
+      dd:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.course-meta-list-item {
+  @include mat-elevation(4, $mat-elevation-color, 0.1);
+
+  .course-meta-list-item__content {
+    font-size: 14px;
+    text-align: justify;
+    color: $dark-secondary-text;
+  }
+
+  .course-meta-list-item__content-en {
+    font-size: 12px;
+    color: $dark-secondary-text;
+  }
+}

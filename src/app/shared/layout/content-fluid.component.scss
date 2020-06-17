@@ -1,0 +1,16 @@
+@import "~@angular/material/theming";
+@import "../variables";
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: $container-width;
+  margin-top: $nav-height;
+
+  .layout-fluid-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+}

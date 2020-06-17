@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+
+:host {
+  width: 100%;
+}
+
+.app-layout-card-fluid {
+  @include mat-elevation(4, $mat-elevation-color, 0.1);
+
+  margin: 0;
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 0;
+}
