@@ -1,6 +1,5 @@
 @import "~@angular/material/theming";
 @import "../variables";
-@import "src/styles";
 
 .app-layout-header {
   @include mat-elevation(4, $mat-elevation-color, 0.1);
