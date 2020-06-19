@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+
+.app-layout-card {
+  @include mat-elevation(4, $mat-elevation-color, 0.1);
+
+  margin-bottom: 12px;
+}
+mat-slider {
+  width: 300px;
+}
+
+.form__submit-container {
+  margin-top: 1em;
+}

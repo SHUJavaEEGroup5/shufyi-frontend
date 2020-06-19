@@ -6,13 +6,15 @@ import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     LayoutModule,
     MatButtonModule,
     MatCardModule,
   ],
-  exports: [],
+  exports: [
+  ],
 })
 export class SharedModule {}
