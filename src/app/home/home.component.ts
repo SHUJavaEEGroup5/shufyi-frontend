@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
   }
-
+  emailVerify() {
+    this.router.navigateByUrl('/verify/123456789', {replaceUrl: true}).then(r => {});
+  }
+  personalPage() {
+    this.router.navigateByUrl('/person', {replaceUrl: true}).then(r => {});
+  }
 }

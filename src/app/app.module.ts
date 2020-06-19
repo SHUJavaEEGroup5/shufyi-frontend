@@ -14,6 +14,7 @@ import {
   ContentMainComponent,
   HeaderComponent,
   SharedModule,
+  InterestsComponent
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,14 +23,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { SignupComponent } from './signup/signup.component';
+import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { HammerModule } from '@angular/platform-browser';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -38,16 +46,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HomeComponent,
     LoginComponent,
     SignupComponent,
+    ValidateEmailComponent,
+    InterestsComponent,
     CardComponent,
     CardFluidComponent,
     ContentComponent,
     ContentAsideComponent,
     ContentFluidComponent,
     ContentMainComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -63,8 +73,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatTableModule,
     MatListModule,
     MatExpansionModule,
+    MatSelectModule,
+    FormsModule,
+    HammerModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

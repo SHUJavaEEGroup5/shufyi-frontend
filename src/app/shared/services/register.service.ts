@@ -18,4 +18,7 @@ export class RegisterService {
     console.log(registerAttempt);
     return this.http.post<AuthTokenResponse>('/api/auth/register', RegisterAttempt);
   }
+  validateEmail(token: string) {
+    return this.http.get('/api/auth/validate?' + token);
+  }
 }
