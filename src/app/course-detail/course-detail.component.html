@@ -19,8 +19,11 @@
         </dl>
       </app-layout-content-main>
       <app-layout-content-aside class="course-meta-wrapper">
-        <h1>10.0 <small>★ ★ ★ ★ ★</small></h1>
-        详细评分
+        <p>总体评分：</p>
+        <div class="reviews-stat">
+          <span class="score">5.0</span>
+          <span class="stars">★ ★ ★ ★ ★<br /><small>(1人评分)</small></span>
+        </div>
       </app-layout-content-aside>
     </app-layout-content>
   </app-layout-card-fluid>
@@ -52,8 +55,10 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions>
-        <button color="primary" mat-button>有用</button>
-        <button color="accent" mat-button>评论</button>
+        <button class="icon-btn" color="primary" mat-stroked-button>
+          <mat-icon>arrow_drop_up</mat-icon>
+          有用
+        </button>
       </mat-card-actions>
     </app-layout-card>
   </app-layout-content-main>

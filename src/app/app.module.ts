@@ -30,6 +30,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatTableModule,
     MatListModule,
     MatExpansionModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

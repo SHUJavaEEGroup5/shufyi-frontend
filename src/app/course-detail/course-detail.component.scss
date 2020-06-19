@@ -40,6 +40,32 @@
       margin-right: 0;
     }
   }
+
+  .reviews-stat {
+    line-height: 36px;
+
+    .score {
+      font-size: 32px;
+      display: inline-block;
+      vertical-align: middle;
+      color: $dark-primary-text;
+    }
+
+    .stars {
+      font-size: 18px;
+      line-height: 20px;
+      display: inline-block;
+      margin-left: 12px;
+      vertical-align: middle;
+      color: map-get($mat-amber, 700);
+
+      small {
+        font-size: 12px;
+        line-height: 16px;
+        color: $dark-secondary-text;
+      }
+    }
+  }
 }
 
 .layout-content-2 {
@@ -80,6 +106,10 @@
         margin-right: 0;
       }
     }
+  }
+
+  .icon-btn {
+    padding-left: 8px !important;
   }
 }
 

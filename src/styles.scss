@@ -24,3 +24,7 @@ body {
   width: $container-width;
   margin: 0 auto;
 }
+
+.mat-icon {
+  user-select: none;
+}
