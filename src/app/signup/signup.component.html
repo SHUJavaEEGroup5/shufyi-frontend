@@ -3,17 +3,21 @@
     <app-layout-card>
       <mat-card-title>注册</mat-card-title>
       <mat-card-content>
-        <form>
-          <div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
             <mat-form-field>
               <mat-label>输入学校邮箱</mat-label>
-              <input matInput type="email">
+              <input #campusEmailAccount formControlName="campusEmailAccount" matInput type="email">
             </mat-form-field>
-          </div>
-          <div class="form__submit-container">
-            <button color="primary" mat-raised-button>下一步</button>
-          </div>
-        </form>
+            <div>
+              <mat-form-field>
+                <mat-label>密码</mat-label>
+                <input #password formControlName="password" matInput type="password">
+              </mat-form-field>
+            </div>
+            <div class="form__submit-container">
+              <button [disabled]="!registerForm.valid" color="primary" mat-raised-button>注册</button>
+            </div>
+          </form>
       </mat-card-content>
     </app-layout-card>
   </app-layout-content-main>

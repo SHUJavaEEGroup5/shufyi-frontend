@@ -34,6 +34,7 @@ export class AuthService {
   }
 
   login(authTokenRequest: AuthTokenRequest): Observable<AuthTokenResponse> {
+    console.log(authTokenRequest);
     return this.http.post<AuthTokenResponse>('/api/auth/token', authTokenRequest);
   }
 }
