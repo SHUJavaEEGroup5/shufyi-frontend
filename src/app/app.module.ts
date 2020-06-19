@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,8 +13,8 @@ import {
   ContentFluidComponent,
   ContentMainComponent,
   HeaderComponent,
+  InterestsComponent,
   SharedModule,
-  InterestsComponent
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SignupComponent } from './signup/signup.component';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -34,11 +34,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { HammerModule } from '@angular/platform-browser';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -80,12 +79,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
     MatIconModule,
   ],
   providers: [
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   bootstrap: [AppComponent],
 })
