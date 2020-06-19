@@ -1,10 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {RegisterService} from '../shared/services/register.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {AuthService} from '../shared/services';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegisterService } from '../shared/services/register.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../shared/services';
 
 @Component({
   selector: 'app-validate-email',
@@ -12,15 +11,16 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./validate-email.component.scss'],
 })
 export class ValidateEmailComponent implements OnInit {
-  private token: string;
   public isVerified: boolean;
   public isLoading: boolean;
+  private token: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private registerService: RegisterService,
     private snackBar: MatSnackBar,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
   }
 
@@ -32,7 +32,7 @@ export class ValidateEmailComponent implements OnInit {
     this.isLoading = true;
     this.route.paramMap.subscribe(params => {
       this.token = params.get('token');
-    })
+    });
     this.registerService
       .validateEmail(this.token)
       .subscribe(

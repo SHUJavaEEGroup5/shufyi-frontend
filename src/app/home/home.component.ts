@@ -4,21 +4,23 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
   }
+
   emailVerify() {
-    this.router.navigateByUrl('/verify/123456789', {replaceUrl: true}).then(r => {});
+    this.router.navigateByUrl('/verify/123456789', { replaceUrl: true }).then(r => {});
   }
+
   personalPage() {
-    this.router.navigateByUrl('/person', {replaceUrl: true}).then(r => {});
+    this.router.navigateByUrl('/person', { replaceUrl: true }).then(r => {});
   }
 }

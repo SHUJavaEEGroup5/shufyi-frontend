@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthTokenResponse, RegisterAttempt} from '../models';
+import { AuthTokenResponse, RegisterAttempt } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -18,6 +18,7 @@ export class RegisterService {
     console.log(registerAttempt);
     return this.http.post<AuthTokenResponse>('/api/auth/register', RegisterAttempt);
   }
+
   validateEmail(token: string) {
     return this.http.get('/api/auth/validate?' + token);
   }

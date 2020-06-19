@@ -1,10 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {RegisterService} from '../shared/services/register.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {AuthService} from '../shared/services';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegisterService } from '../shared/services/register.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../shared/services';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       campusEmailAccount: ['', Validators.required],
       campusEmailDomain: '',
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 

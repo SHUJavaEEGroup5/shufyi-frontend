@@ -1,37 +1,37 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="InfoForm">
   <h4>填写个人兴趣 作为推荐依据</h4>
   <mat-form-field floatLabel="auto">
-      <input matInput [matDatepicker]="grade" formControlName="grade" placeholder="选择入学年份" [max]="maxDate">
-    <mat-datepicker-toggle matSuffix [for]="grade"></mat-datepicker-toggle>
-    <mat-datepicker #grade startView="multi-year" [startAt]="startDate"></mat-datepicker>
+    <input [matDatepicker]="grade" [max]="maxDate" formControlName="grade" matInput placeholder="选择入学年份">
+    <mat-datepicker-toggle [for]="grade" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #grade [startAt]="startDate" startView="multi-year"></mat-datepicker>
   </mat-form-field>
 
-    <mat-form-field floatLabel="auto">
-      <mat-select placeholder="选择专业" formControlName="major" #major]>
-        <mat-option>-- 无 --</mat-option>
-        <mat-optgroup *ngFor="let school of schools" [label]="school.label">
-          <mat-option *ngFor="let major of school.majors" [value]="major.value">
-            {{major.label}}
-          </mat-option>
-        </mat-optgroup>
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field floatLabel="auto">
+    <mat-select #major] formControlName="major" placeholder="选择专业">
+      <mat-option>-- 无 --</mat-option>
+      <mat-optgroup *ngFor="let school of schools" [label]="school.label">
+        <mat-option *ngFor="let major of school.majors" [value]="major.value">
+          {{major.label}}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
 
-  <div *ngFor="let interest of interests" >
+  <div *ngFor="let interest of interests">
     <mat-label>{{interest.label}}</mat-label>
     <mat-slider
-      thumbLabel
-      step="25"
-      [displayWith]="formatLabel"
       [(ngModel)]="interest.value"
-      tickInterval="25"
+      [displayWith]="formatLabel"
       [ngModelOptions]="{standalone: true}"
+      max="100"
       min="0"
-      max="100">
+      step="25"
+      thumbLabel
+      tickInterval="25">
     </mat-slider>
   </div>
   <div class="form__submit-container">
-    <button [disabled]="!InfoForm.valid" color="primary" mat-raised-button (click)="onSubmit()">保存</button>
+    <button (click)="onSubmit()" [disabled]="!InfoForm.valid" color="primary" mat-raised-button>保存</button>
   </div>
 </form>
 

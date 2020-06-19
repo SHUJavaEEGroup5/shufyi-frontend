@@ -2,15 +2,15 @@
   <app-layout-content-main>
     <app-layout-card>
       <div *ngIf="!isVerified">
-      <mat-card-title >验证邮箱</mat-card-title>
-      <mat-spinner *ngIf="isLoading">正在验证</mat-spinner>
-      <button color="primary" mat-raised-button (click)="isVerified = true">
-        假装验证通过(测试)
-      </button>
+        <mat-card-title>验证邮箱</mat-card-title>
+        <mat-spinner *ngIf="isLoading">正在验证</mat-spinner>
+        <button (click)="isVerified = true" color="primary" mat-raised-button>
+          假装验证通过(测试)
+        </button>
       </div>
       <mat-card-content>
-      <app-interests *ngIf="isVerified">
-      </app-interests>
+        <app-interests *ngIf="isVerified">
+        </app-interests>
       </mat-card-content>
     </app-layout-card>
   </app-layout-content-main>
