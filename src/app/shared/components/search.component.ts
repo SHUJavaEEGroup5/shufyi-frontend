@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {SearchService} from '../services/search.service';
-import {SimpleSearchResponse} from '../models';
+import { SearchService } from '../services/search.service';
+import { SimpleSearchResponse } from '../models';
 import { Router } from '@angular/router';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-search-component',
@@ -13,14 +13,16 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  options: SimpleSearchResponse[] = [{id: '1', courseName: 'Java EE', courseId: '0860654654', credit: 5, type: '专业选修'}];
+  options: SimpleSearchResponse[] = [{ id: '1', courseName: 'Java EE', courseNumber: '0860654654', credit: 5, type: '专业选修' }];
   toSearch: string;
+
   constructor(
     private searchService: SearchService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
   }
+
   ngOnInit(): void {
   }
 
@@ -30,6 +32,7 @@ export class SearchComponent implements OnInit {
       this.snackBar.open('查找中', undefined, { duration: 2000 });
     });
   }
+
   updateOptions($event) {
     this.toSearch = $event.target.value;
     this.searchService.simpleSearch(this.toSearch).subscribe(
@@ -38,7 +41,7 @@ export class SearchComponent implements OnInit {
         this.options = data;
       },
       (err: HttpErrorResponse) => {
-      }
+      },
     );
   }
 
