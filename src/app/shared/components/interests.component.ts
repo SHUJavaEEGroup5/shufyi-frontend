@@ -39,6 +39,7 @@ export class InterestsComponent implements OnInit{
   startDate = new Date(new Date().getFullYear() - 2, 9, 1);
   maxDate = new Date();
   InfoForm: FormGroup;
+  isCompleted = false;
   @ViewChild('grade') gradeRef: ElementRef<HTMLInputElement>;
   @ViewChild('major') majorRef: ElementRef<HTMLInputElement>;
 
@@ -275,6 +276,7 @@ export class InterestsComponent implements OnInit{
         (data) => {
           console.log(data);
           this.snackBar.open('保存成功！', undefined, { duration: 2000 });
+          this.isCompleted = true;
         },
         (err: HttpErrorResponse) => {
           this.InfoForm.enable();

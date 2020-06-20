@@ -1,16 +1,40 @@
 <app-layout-content>
   <app-layout-content-main>
     <app-layout-card>
-      <div *ngIf="!isVerified">
-      <mat-card-title >验证邮箱</mat-card-title>
-      <mat-spinner *ngIf="isLoading">正在验证</mat-spinner>
-      <button color="primary" mat-raised-button (click)="isVerified = true">
-        假装验证通过(测试)
-      </button>
-      </div>
       <mat-card-content>
-      <app-interests *ngIf="isVerified">
-      </app-interests>
+      <mat-horizontal-stepper linear #stepper>
+        <mat-step [completed]="isVerified">
+          <ng-template matStepLabel>邮箱验证</ng-template>
+          <mat-spinner *ngIf="isLoading">正在验证</mat-spinner>
+          <button color="primary" mat-raised-button (click)="isVerified = true; stepper.next()">
+            假装验证通过(测试)
+          </button>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step [completed]="interestsComponent.isCompleted">
+            <ng-template matStepLabel>兴趣设置</ng-template>
+            <app-interests #interestsComponent>
+            </app-interests>
+          <button color="primary" mat-raised-button (click)="interestsComponent.isCompleted = true; stepper.next()">
+            假装验证通过(测试)
+          </button>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>完成</ng-template>
+          Complete!
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
       </mat-card-content>
     </app-layout-card>
   </app-layout-content-main>

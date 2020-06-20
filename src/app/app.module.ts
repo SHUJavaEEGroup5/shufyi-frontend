@@ -14,7 +14,8 @@ import {
   ContentMainComponent,
   HeaderComponent,
   SharedModule,
-  InterestsComponent
+  InterestsComponent,
+  SearchComponent
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +39,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     SignupComponent,
     ValidateEmailComponent,
     InterestsComponent,
+    SearchComponent,
     CardComponent,
     CardFluidComponent,
     ContentComponent,
@@ -79,7 +83,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatAutocompleteModule
   ],
   providers: [
     MatDatepickerModule,
