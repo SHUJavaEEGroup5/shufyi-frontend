@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   handleSelected(option: SimpleSearchResponse) {
     console.log(option);
-    this.router.navigateByUrl('/courses/' + option.id, { replaceUrl: false }).then(() => {
+    this.router.navigateByUrl('/courses/' + option.courseNumber, { replaceUrl: false }).then(() => {
       this.snackBar.open('查找中', undefined, { duration: 2000 });
     });
   }
