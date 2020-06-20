@@ -13,9 +13,9 @@ import {
   ContentFluidComponent,
   ContentMainComponent,
   HeaderComponent,
-  SharedModule,
   InterestsComponent,
-  SearchComponent
+  SearchComponent,
+  SharedModule,
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,8 +39,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -87,7 +87,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatIconModule,
     MatProgressSpinnerModule,
     MatStepperModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   providers: [
     MatDatepickerModule,

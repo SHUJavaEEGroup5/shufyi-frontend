@@ -2,9 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegisterService } from '../shared/services/register.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from '../shared/services';
+import { AuthService, RegisterService } from '../shared';
 
 
 @Component({

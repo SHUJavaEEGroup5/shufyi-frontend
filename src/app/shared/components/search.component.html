@@ -1,7 +1,9 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <input type="search" id="source" placeholder="请输入课程号或课程名" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" (input)="updateOptions($event)">
-    <mat-autocomplete autoActiveFirstOption (optionSelected)="handleSelected($event.option.value)"  #auto="matAutocomplete">
+    <input (input)="updateOptions($event)" [formControl]="myControl" [matAutocomplete]="auto" aria-label="Number" id="source" matInput
+           placeholder="请输入课程号或课程名" type="search">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="handleSelected($event.option.value)"
+                      autoActiveFirstOption>
       <mat-option *ngFor="let option of options" [value]="option">
         <mat-chip-list>
           <mat-chip>课程号:</mat-chip>

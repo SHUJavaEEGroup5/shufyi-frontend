@@ -49,6 +49,6 @@ export class SearchComponent implements OnInit {
     if (value === null) {
       return '';
     }
-    return value.courseId + ' ' + value.courseName + '123';
+    return value.courseNumber + ' ' + value.courseName + '123';
   }
 }

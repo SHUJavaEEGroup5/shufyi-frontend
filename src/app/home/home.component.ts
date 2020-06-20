@@ -17,10 +17,10 @@ export class HomeComponent implements OnInit {
   }
 
   emailVerify() {
-    this.router.navigateByUrl('/verify/123456789', { replaceUrl: true }).then(r => {});
+    this.router.navigateByUrl('/verify/123456789', { replaceUrl: true }).then((r) => {});
   }
 
   personalPage() {
-    this.router.navigateByUrl('/person', { replaceUrl: true }).then(r => {});
+    this.router.navigateByUrl('/person', { replaceUrl: true }).then((r) => {});
   }
 }

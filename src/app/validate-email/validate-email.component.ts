@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegisterService } from '../shared/services/register.service';
+import { AuthService, RegisterService } from '../shared';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from '../shared/services';
 
 @Component({
   selector: 'app-validate-email',

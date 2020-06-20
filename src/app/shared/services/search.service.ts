@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SimpleSearchResponse} from '../models';
+import { SimpleSearchResponse } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
