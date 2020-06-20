@@ -4,3 +4,4 @@ export * from './user';
 export * from './register-attempt';
 export * from './interests-request';
 export * from './simple-search-response';
+export * from './username-request';

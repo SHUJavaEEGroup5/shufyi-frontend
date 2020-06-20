@@ -5,16 +5,18 @@
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="handleSelected($event.option.value)"
                       autoActiveFirstOption>
       <mat-option *ngFor="let option of options" [value]="option">
+        <div id="option">
         <mat-chip-list>
           <mat-chip>课程号:</mat-chip>
           {{option.courseNumber}}
-          <mat-chip>课程名称:</mat-chip>
+          <mat-chip>名称:</mat-chip>
           {{option.courseName}}
           <mat-chip>学分:</mat-chip>
           {{option.credit}}
           <mat-chip>类型:</mat-chip>
           {{option.type}}
         </mat-chip-list>
+        </div>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

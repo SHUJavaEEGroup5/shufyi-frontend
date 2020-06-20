@@ -277,7 +277,7 @@ export class InterestsComponent implements OnInit {
           this.InfoForm.value.grade = new Date(parseInt(data.grade, 10), new Date().getMonth());
           this.InfoForm.value.major = data.major;
           for (let i = 0; i < data.interests.length; i++) {
-            this.InfoForm.value.interests[i].value = data.interests[i];
+            this.interests[i].value = data.interests[i];
           }
         },
         (err: HttpErrorResponse) => {

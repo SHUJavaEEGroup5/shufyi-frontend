@@ -10,7 +10,6 @@
               假装验证通过(测试)
             </button>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </div>
           </mat-step>
@@ -22,16 +21,22 @@
               假装验证通过(测试)
             </button>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </div>
           </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>完成</ng-template>
-            Complete!
+          <mat-step [completed]="isSetUsername">
+            <ng-template matStepLabel>设置用户名</ng-template>
+            <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
+              <mat-form-field floatLabel="用户名" class="example-full-width">
+                <input #username formControlName="username" matInput type="text">
+                <mat-hint>4-20字符以内</mat-hint>
+              </mat-form-field>
+              <button (click)="submitUsername()" [disabled]="" color="primary" mat-raised-button>
+                确定
+              </button>
+            </form>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button (click)="stepper.reset()" mat-button>Reset</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>

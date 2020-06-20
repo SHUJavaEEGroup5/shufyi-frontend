@@ -13,6 +13,6 @@ export class SearchService {
 
   simpleSearch(toSearch: string): Observable<SimpleSearchResponse[]> {
     console.log(toSearch);
-    return this.http.get<SimpleSearchResponse[]>('/api/search/simple?' + toSearch);
+    return this.http.get<SimpleSearchResponse[]>('/api/search/simple?toSearch=' + toSearch);
   }
 }
