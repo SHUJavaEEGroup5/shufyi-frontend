@@ -5,11 +5,13 @@
       <mat-option *ngFor="let option of options" [value]="option">
         <mat-chip-list>
           <mat-chip>课程号:</mat-chip>
-          {{option.number}}
+          {{option.courseNumber}}
           <mat-chip>课程名称:</mat-chip>
-          {{option.name}}
+          {{option.courseName}}
           <mat-chip>学分:</mat-chip>
           {{option.credit}}
+          <mat-chip>类型:</mat-chip>
+          {{option.type}}
         </mat-chip-list>
       </mat-option>
     </mat-autocomplete>

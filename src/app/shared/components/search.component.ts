@@ -13,7 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  options: SimpleSearchResponse[] = [{id: '1', name: 'Java EE', number: '0860654654', credit: 5}];
+  options: SimpleSearchResponse[] = [{id: '1', courseName: 'Java EE', courseId: '0860654654', credit: 5, type: '专业选修'}];
   toSearch: string;
   constructor(
     private searchService: SearchService,
@@ -46,6 +46,6 @@ export class SearchComponent implements OnInit {
     if (value === null) {
       return '';
     }
-    return value.number + ' ' + value.name + '123';
+    return value.courseId + ' ' + value.courseName + '123';
   }
 }
