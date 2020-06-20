@@ -113,6 +113,30 @@
   }
 }
 
+.reviews-title-group {
+  margin: -8px -8px 8px 0 !important;
+
+  .reviews-title {
+    font-size: 18px;
+    line-height: 36px;
+    margin: 0;
+
+    small {
+      font-size: 14px;
+      margin-left: 8px;
+      color: $dark-secondary-text;
+    }
+  }
+}
+
+.reviews-filter {
+  padding: 0 12px;
+
+  .teachers-header {
+    color: $dark-secondary-text;
+  }
+}
+
 .course-meta-list-item {
   @include mat-elevation(4, $mat-elevation-color, 0.1);
 

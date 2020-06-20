@@ -1,0 +1,19 @@
+<h2 class="dialog-title" mat-dialog-title>
+  为 <strong>Java EE开发技术</strong> 添加评价：
+</h2>
+<div mat-dialog-content>
+  <div class="score-field">
+    <span class="score-field-label">你的评分</span>
+    <button (click)="score = i" *ngFor="let i of [1, 2, 3, 4, 5]" [class.active]="i <= score" [matTooltip]="i + '分'"
+            class="btn-star" mat-icon-button matTooltipPosition="below">★
+    </button>
+    <span class="score">{{ score }}分</span>
+  </div>
+  <mat-form-field appearance="standard" class="content-field" floatLabel="always">
+    <mat-label>评价正文</mat-label>
+    <textarea matInput matTextareaAutosize placeholder="对课程的看法和评价"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-raised-button>提交评价</button>
+</div>

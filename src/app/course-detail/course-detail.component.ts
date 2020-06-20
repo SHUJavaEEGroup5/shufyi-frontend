@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddReviewDialogComponent } from '../shared/components';
 
 @Component({
   selector: 'app-course-detail',
@@ -6,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-detail.component.scss'],
 })
 export class CourseDetailComponent implements OnInit {
-  data = {
-    courseId: '08306120',
+  course = {
+    courseNumber: '08306120',
     courseName: 'Java EE开发技术',
     courseNameEn: 'Java EE Development Technology',
     credits: 4,
@@ -47,8 +49,47 @@ export class CourseDetailComponent implements OnInit {
     ],
   };
 
-  constructor() {}
+  teachers = [
+    {
+      id: 0,
+      teacherName: '邹国兵',
+    }, {
+      id: 1,
+      teacherName: '宋波',
+    },
+  ];
+
+  selectedTeacherId = -1;
+
+  constructor(
+    public dialog: MatDialog,
+  ) {}
+
+  get reviewsQueryParams() {
+    return {
+      courseId: 123,
+      teacherId: this.selectedTeacherId,
+    };
+  }
+
+  get t() {
+    return JSON.stringify(this.reviewsQueryParams);
+  }
+
+  openNewReviewDialog(): void {
+    const dialogRef = this.dialog.open(AddReviewDialogComponent, {
+      width: '720px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  selectTeacher(id) {
+    this.selectedTeacherId = this.selectedTeacherId === id ? -1 : id;
+    console.log(this.selectedTeacherId);
   }
 }

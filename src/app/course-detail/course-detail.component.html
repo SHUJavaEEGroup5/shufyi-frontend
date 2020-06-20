@@ -8,17 +8,17 @@
             心愿课
           </button>
         </div>
-        <h1 class="course-name">{{ data.courseName }}</h1>
-        <h2 class="course-name-en">{{ data.courseNameEn }}</h2>
+        <h1 class="course-name">{{ course.courseName }}</h1>
+        <h2 class="course-name-en">{{ course.courseNameEn }}</h2>
         <dl>
           <dt>课程号：</dt>
-          <dd>{{ data.courseId }}</dd>
+          <dd>{{ course.courseNumber }}</dd>
           <dt>学分数：</dt>
-          <dd>{{ data.credits }}</dd>
+          <dd>{{ course.credits }}</dd>
           <dt>开课学院：</dt>
-          <dd>{{ data.college }}</dd>
+          <dd>{{ course.college }}</dd>
           <dt>课程类型：</dt>
-          <dd>{{ data.type }}</dd>
+          <dd>{{ course.type }}</dd>
         </dl>
       </app-layout-content-main>
       <app-layout-content-aside class="course-meta-wrapper">
@@ -34,7 +34,22 @@
 <app-layout-content class="layout-content-2">
   <app-layout-content-main>
     <app-layout-card>
-      发表你的看法
+      <mat-card-title-group class="reviews-title-group">
+        <mat-card-title class="reviews-title">评价<small>(共 3 条)</small></mat-card-title>
+        {{ t }}
+        <button (click)="openNewReviewDialog()" color="primary" mat-raised-button>
+          <mat-icon>add_comment</mat-icon>
+          写评价
+        </button>
+      </mat-card-title-group>
+      <mat-card-content class="reviews-filter">
+        <mat-chip-list>
+          <span class="teachers-header">开设此课程的教师：</span>
+          <mat-chip (click)="selectTeacher(teacher.id)" *ngFor="let teacher of teachers"
+                    [selected]="selectedTeacherId === teacher.id"
+                    selectable>{{ teacher.teacherName }}</mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
     </app-layout-card>
     <app-layout-card *ngFor="let i of [1, 2, 3]" class="review-card">
       <mat-card-header class="review-card__meta">
@@ -67,7 +82,7 @@
   </app-layout-content-main>
   <app-layout-content-aside>
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let item of data.meta; let i = index" [expanded]="i == 0"
+      <mat-expansion-panel *ngFor="let item of course.meta; let i = index" [expanded]="i == 0"
                            class="course-meta-list-item">
         <mat-expansion-panel-header>
           <mat-panel-title>{{ item.name }}</mat-panel-title>
