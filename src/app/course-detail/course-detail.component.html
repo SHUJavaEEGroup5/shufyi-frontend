@@ -3,7 +3,10 @@
     <app-layout-content>
       <app-layout-content-main class="course-meta-wrapper">
         <div class="course-actions-group">
-          <button color="accent" mat-raised-button>我要评分</button>
+          <button color="primary" mat-stroked-button>
+            <mat-icon>playlist_add</mat-icon>
+            心愿课
+          </button>
         </div>
         <h1 class="course-name">{{ data.courseName }}</h1>
         <h2 class="course-name-en">{{ data.courseNameEn }}</h2>
@@ -55,7 +58,7 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions>
-        <button class="icon-btn" color="primary" mat-stroked-button>
+        <button class="icon-btn" color="accent" mat-stroked-button>
           <mat-icon>arrow_drop_up</mat-icon>
           有用
         </button>
