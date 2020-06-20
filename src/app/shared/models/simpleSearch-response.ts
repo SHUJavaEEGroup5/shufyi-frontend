@@ -1,6 +1,7 @@
 export class SimpleSearchResponse {
   id: string;
-  name: string;
-  number: string;
+  courseName: string;
+  courseNumber: string;
   credit: number;
+  type: string;
 }
