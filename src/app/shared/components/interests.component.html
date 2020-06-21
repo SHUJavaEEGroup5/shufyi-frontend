@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <mat-form-field floatLabel="auto">
-    <mat-select #major] formControlName="major" placeholder="选择专业">
+    <mat-select #major formControlName="major" placeholder="选择专业">
       <mat-option>-- 无 --</mat-option>
       <mat-optgroup *ngFor="let school of schools" [label]="school.label">
         <mat-option *ngFor="let major of school.majors" [value]="major.value">

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { InterestsRequest } from '../models';
+import { InterestsRequest, UsernameRequest, UserInfo } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsernameRequest } from '../models/username-request';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +22,10 @@ export class PersonalService {
 
   setUserName(username: UsernameRequest) {
     return this.http.post<void>('/api/user/username', username);
+  }
+
+  // 根据姓名 返回自己或别人信息
+  getUserInfo(name: string) {
+    return this.http.get<UserInfo>('/api/user/info?user=' + name);
   }
 }

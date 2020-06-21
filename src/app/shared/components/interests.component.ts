@@ -39,6 +39,8 @@ export class InterestsComponent implements OnInit {
   maxDate = new Date();
   InfoForm: FormGroup;
   isCompleted = false;
+  majorPrevious = '';
+  gradePrevious = '';
   @ViewChild('grade') gradeRef: ElementRef<HTMLInputElement>;
   @ViewChild('major') majorRef: ElementRef<HTMLInputElement>;
   interests: Interest[] = [
@@ -274,8 +276,20 @@ export class InterestsComponent implements OnInit {
     this.personalService.getInterests()
       .subscribe(
         (data) => {
-          this.InfoForm.value.grade = new Date(parseInt(data.grade, 10), new Date().getMonth());
+          console.log(data);
+          console.log(this.InfoForm);
+          this.InfoForm.value.grade = new Date(parseInt(data.grade, 10), new Date().getMonth(), new Date().getDate());
           this.InfoForm.value.major = data.major;
+          console.log(this.InfoForm);
+          this.majorPrevious = data.major;
+          this.gradePrevious = data.grade;
+          // for (const school of this.schools) {
+          //   for (const major of school.majors) {
+          //     if (major.value === data.major) {
+          //       this.InfoForm.value.major = major.value
+          //     }
+          //   }
+          // }
           for (let i = 0; i < data.interests.length; i++) {
             this.interests[i].value = data.interests[i];
           }

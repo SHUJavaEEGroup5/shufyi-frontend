@@ -1,0 +1,111 @@
+<app-layout-content>
+    <app-layout-card-fluid class="course-meta-wrapper">
+        <app-layout-content>
+            <app-layout-content-main class="course-meta-wrapper">
+                    <div class="ProfileHeader-wrapper">
+                        <div class="ProfileHeader-main">
+                            <div class="UserAvatar ProfileHeader-avatar" style="top: 0px;">
+                                <img class="Avatar Avatar--large UserAvatar-inner"
+                                     width="150" height="150" [src]="userInfo.src" [alt]="userInfo.username + '的头像'">
+                            </div>
+                            <div class="ProfileHeader-content">
+                                <div class="ProfileHeader-contentHead">
+                                    <h1 class="ProfileHeader-title">
+                                        <span class="ProfileHeader-name">{{ userInfo.username }}</span>
+                                        <span class="ztext ProfileHeader-headline"></span>
+                                    </h1>
+                                </div>
+                                <div class="ProfileHeader-info">
+                                    <div class="ProfileHeader-infoItem">
+                                        <h2>年级: {{ userInfo.grade }}</h2>
+                                    </div>
+                                    <div class="ProfileHeader-infoItem">
+                                        <h2>专业: {{ userInfo.major }}</h2>
+                                    </div>
+                                    <div *ngIf="isSelf" class="ProfileHeader-infoItem">
+                                        <h2>邮箱: {{ userInfo.email }}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </app-layout-content-main>
+            <app-layout-content-aside class="course-meta-wrapper">
+            </app-layout-content-aside>
+        </app-layout-content>
+    </app-layout-card-fluid>
+</app-layout-content>
+<app-layout-content class="layout-content-2">
+    <app-layout-content-main>
+        <app-layout-card>
+        <mat-tab-group dynamicHeight>
+            <mat-tab label="最近评价">
+                <div>
+                    <app-layout-card *ngFor="let review of reviews.reviews" class="review-card">
+                        <mat-card-header class="review-card__meta">
+                            <img [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
+                            <mat-card-title>
+                                {{userInfo.username}}
+                            </mat-card-title>
+                            <mat-card-subtitle>
+                                <dl>
+                                    <dt>选课时间：</dt>
+                                    <dd>{{review.rateTime}}</dd>
+                                    <dt>教师：</dt>
+                                    <dd>{{review.teacher}}</dd>
+                                    <dt>评价：</dt>
+                                    <dd>{{getStarts(review.score)}}</dd>
+                                </dl>
+                            </mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{review.comment}}</p>
+                        </mat-card-content>
+                        <mat-divider></mat-divider>
+                        <mat-card-actions>
+                            <button class="icon-btn" color="accent" mat-stroked-button>
+                                <mat-icon>arrow_drop_up</mat-icon>
+                                {{review.useful}}人觉得有用
+                            </button>
+                        </mat-card-actions>
+                    </app-layout-card>
+                </div>
+                <app-layout-card class="review-card">
+                    <mat-paginator (page)="pageChangeEvent($event)"
+                                   [length]="totalRecordNumber"
+                                   [pageSize]="pageSize"
+                                   [pageSizeOptions]="pageSizeOptions"
+                                   >
+                    </mat-paginator>
+                </app-layout-card>
+            </mat-tab>
+            <mat-tab label="个人兴趣">
+                <div>
+                    <app-interests #interestsComponent>
+                    </app-interests>
+                </div>
+            </mat-tab>
+            <mat-tab *ngIf="true" label="用户名更改">
+                <div>
+                    <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
+                        <mat-form-field>
+                            <mat-label>用户名</mat-label>
+                            <input #username formControlName="username" matInput type="text">
+                            <mat-hint>4-20字符以内 支持汉字</mat-hint>
+                        </mat-form-field>
+                        <br>
+                        <button (click)="submitUsername()" [disabled]="" color="primary" mat-raised-button>
+                            确定
+                        </button>
+                    </form>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        </app-layout-card>
+    </app-layout-content-main>
+    <app-layout-content-aside>
+        <app-layout-card>
+            心愿单
+        </app-layout-card>
+    </app-layout-content-aside>
+</app-layout-content>

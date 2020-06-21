@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthTokenResponse, RegisterAttempt, User} from '../models';
+import { AuthTokenResponse, RegisterAttempt, User } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

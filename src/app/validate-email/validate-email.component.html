@@ -9,8 +9,9 @@
             <button (click)="isVerified = true; stepper.next()" color="primary" mat-raised-button>
               假装验证通过(测试)
             </button>
-            <div>
-              <button mat-button matStepperNext>Next</button>
+            <div *ngIf="isVerified">
+              <h3 *ngIf="isVerified">验证成功</h3>
+              <button mat-button matStepperNext>下一步</button>
             </div>
           </mat-step>
           <mat-step [completed]="interestsComponent.isCompleted">
@@ -20,23 +21,38 @@
             <button (click)="interestsComponent.isCompleted = true; stepper.next()" color="primary" mat-raised-button>
               假装验证通过(测试)
             </button>
-            <div>
-              <button mat-button matStepperNext>Next</button>
+            <div *ngIf="interestsComponent.isCompleted">
+              <h3>保存成功</h3>
+              <button mat-button matStepperNext>下一步</button>
             </div>
           </mat-step>
           <mat-step [completed]="isSetUsername">
             <ng-template matStepLabel>设置用户名</ng-template>
             <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
-              <mat-form-field floatLabel="用户名" class="example-full-width">
-                <input #username formControlName="username" matInput type="text">
-                <mat-hint>4-20字符以内</mat-hint>
+              <mat-form-field>
+                <mat-label>用户名</mat-label>
+                  <input #username formControlName="username" matInput type="text">
+                  <mat-hint>4-20字符以内 支持汉字</mat-hint>
               </mat-form-field>
+              <br>
               <button (click)="submitUsername()" [disabled]="" color="primary" mat-raised-button>
                 确定
               </button>
             </form>
+            <!--
+            <form (ngSubmit)="submitNickname()" [formGroup]="NicknameForm" >
+              <mat-form-field>
+                <mat-label>昵称</mat-label>
+                <input #nickname formControlName="nickname" matInput type="text">
+                <mat-hint>4-20字符以内</mat-hint>
+              </mat-form-field>
+              <button (click)="submitNickname()" [disabled]="" color="primary" mat-raised-button>
+                确定
+              </button>
+            </form>
+            -->
             <div>
-              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperPrevious>返回上一步</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
