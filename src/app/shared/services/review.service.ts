@@ -12,7 +12,7 @@ export class ReviewService {
     ) {}
 
     getReviewFromOne(username: string, offset: number, step: number): Observable<PaginationReviewFromOne> {
-        return this.http.get<PaginationReviewFromOne>('/api/user/review?user=' + username + '?offset=' + offset + '?limit=' + step);
+        return this.http.get<PaginationReviewFromOne>('/api/user/reviews?user=' + username + '?orderByColumn=creatTime?ascending=false' + '?offset=' + offset + '?limit=' + step);
     }
 
     // unchecked

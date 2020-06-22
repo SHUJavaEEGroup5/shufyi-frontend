@@ -3,6 +3,7 @@
 .course-meta-card {
   .course-meta-wrapper {
     padding: 12px 24px;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   }
 
   .course-name {
@@ -469,4 +470,7 @@ a {
 }
 .DynamicColorButton svg {
   fill: currentColor;
+}
+.mat-icon {
+  vertical-align: middle;
 }

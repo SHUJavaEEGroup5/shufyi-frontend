@@ -1,12 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, Route, ActivatedRoute } from '@angular/router';
-import { AuthService, PersonalService, ReviewService } from '../shared/services';
+import { AuthService, PersonalService, ReviewService, WishListService } from '../shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {PaginationReviewFromOne, ReviewFromOne, User, UserInfo} from '../shared/models';
+import { PaginationReviewFromOne, ReviewFromOne, User, UserInfo, WishRequest, WishResponse } from '../shared/models';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PageEvent } from '@angular/material/paginator';
+import { MatListOption } from '@angular/material/list';
 
 @Component({
     selector: 'app-user-center',
@@ -25,33 +26,41 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     public totalRecordNumber: number;
     public pageNo: number;
     public pageSize: number;
-    public pageSizeOptions: [10, 20, 50];
+    public pageSizeOptions: number[] =  [10, 20, 50];
     public reviews: PaginationReviewFromOne;
-    pageEvent: PageEvent;
+    public pageEvent: PageEvent;
+    public wishListIds: WishRequest[];
+    public wishListIdsFinished: WishRequest[];
+    public wishList: WishResponse[];
+    public wishListFinished: WishResponse[];
 
     // mock
     userInfoMock: UserInfo = {
         username: '一只迷路的小猫',
-        major: 'grade',
+        major: '计算机科学',
         grade: '2018',
         email: 'xxx@shu.edu.cn',
         src: 'https://placekitten.com/199/200'
     };
 
     reviewMock1: ReviewFromOne = {
-        rateTime: '19-20春',
-        teacher: '邹国兵',
-        score: 5,
-        comment:  '超喜欢邹老师的，上课上得好，说话又好听！（',
-        useful: 35,
+        courseId: '1',
+        trimester: '19-20春',
+        teacherName: '邹国兵',
+        rate: 5,
+        content:  '超喜欢邹老师的，上课上得好，说话又好听！（',
+        upVoterNum: 35,
+        createTime: '123456'
     };
 
     reviewMock2: ReviewFromOne = {
-        rateTime: '19-20冬',
-        teacher: '邹国兵',
-        score: 7,
-        comment:  '超喜欢邹老师的，上课上得好，说话又好听！（',
-        useful: 35,
+        courseId: '2',
+        trimester: '19-20冬',
+        teacherName: '邹国兵',
+        rate: 7,
+        content:  '超喜欢邹老师的，上课上得好，说话又好听！（',
+        upVoterNum: 99,
+        createTime: '1234'
     };
 
     reviewsMock: PaginationReviewFromOne = {
@@ -69,6 +78,14 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             this.reviewMock2,
         ]
     };
+    wishMock1: WishResponse =  { id: '0', courseId: '1', courseName: 'Java EE', createTime: '456' };
+    wishMock2: WishResponse =  { id: '1', courseId: '2', courseName: '毛泽东思想概论xxxxxxxx', createTime: '456' };
+    wishMock3: WishResponse =  { id: '2', courseId: '3', courseName: 'Java EE', createTime: '456' };
+    wishListMock: WishResponse[] = [
+        this.wishMock1,
+        this.wishMock2,
+        this.wishMock3,
+    ];
 
     constructor(
         private router: Router,
@@ -77,6 +94,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         private authService: AuthService,
         private personalService: PersonalService,
         private reviewService: ReviewService,
+        private wishListService: WishListService,
         private snackBar: MatSnackBar,
     ) {
         this.userSubscription = this.authService.getUser().subscribe((user) => this.user = user);
@@ -84,10 +102,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             username: ['', Validators.required],
         });
     }
-
-    wishList = [
-        {}
-    ];
 
     ngOnInit(): void {
         // fetch user info to display
@@ -125,6 +139,14 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.reviews = this.reviewsMock;
         this.totalRecordNumber = this.reviews.pageNumber;
         this.updateReviews();
+
+        // mock
+        this.wishList = this.wishListMock;
+        this.wishListFinished = this.wishListMock;
+        this.updateWishList();
+
+        console.log(this.wishList);
+        console.log(this.wishListFinished);
     }
 
     ngOnDestroy(): void {
@@ -188,5 +210,104 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             temp += '★ ';
         }
         return temp;
+    }
+
+    personalPage(name: string) {
+        this.router.navigateByUrl('/people/' + name, { replaceUrl: true }).then((r) => {});
+    }
+
+    completeWishes() {
+        this.wishListService.completeWish(this.wishListIds).subscribe(
+            (data) => {
+                this.snackBar.open(' 添加成功！', undefined, { duration: 2000 });
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+                if (err.status === 400) {
+                    this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+                } else if (err.status > 0) {
+                    this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+                } else {
+                    this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+                }
+            },
+        );
+        this.updateWishList();
+    }
+
+    removeWishes() {
+        this.wishListService.deleteWish(this.wishListIds).subscribe(
+            (data) => {
+                this.snackBar.open(' 移除成功！', undefined, { duration: 2000 });
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+                if (err.status === 400) {
+                    this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+                } else if (err.status > 0) {
+                    this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+                } else {
+                    this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+                }
+            },
+        );
+        this.updateWishList();
+    }
+
+    updateWishList() {
+        console.log(this.wishList);
+        console.log(this.wishListFinished);
+        this.wishListService.getWishList(this.userInfo.username).subscribe(
+            (data) => {
+                console.log(data);
+                this.wishList = data;
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+                if (err.status === 400) {
+                    this.snackBar.open(err.error.message, undefined, {duration: 5000});
+                } else if (err.status > 0) {
+                    this.snackBar.open(`${err.statusText} (${err.status})`, undefined, {duration: 5000});
+                } else {
+                    this.snackBar.open('出现了网络错误，请稍后重试…', undefined, {duration: 5000});
+                }
+            },
+        );
+        this.wishListService.getWishListFinished(this.userInfo.username).subscribe(
+            (data) => {
+                console.log(data);
+                this.wishList = data;
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+                if (err.status === 400) {
+                    this.snackBar.open(err.error.message, undefined, {duration: 5000});
+                } else if (err.status > 0) {
+                    this.snackBar.open(`${err.statusText} (${err.status})`, undefined, {duration: 5000});
+                } else {
+                    this.snackBar.open('出现了网络错误，请稍后重试…', undefined, {duration: 5000});
+                }
+            },
+        );
+        this.wishList = this.wishListMock;
+        this.wishListFinished = this.wishListMock;
+        console.log(this.wishList);
+        console.log(this.wishListFinished);
+    }
+
+    onSelection(options: MatListOption[]) {
+        this.wishListIds = [];
+        for (const wishId of options.map(o => o.value)) {
+            this.wishListIds.push(new WishRequest(wishId));
+        }
+        console.log(this.wishListIds);
+    }
+
+    onSelectionFinished(options: MatListOption[]) {
+        this.wishListIdsFinished = [];
+        for (const wishId of options.map(o => o.value)) {
+            this.wishListIdsFinished.push(new WishRequest(wishId));
+        }
+        console.log(this.wishListIdsFinished);
     }
 }

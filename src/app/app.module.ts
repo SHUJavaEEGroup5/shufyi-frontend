@@ -17,6 +17,7 @@ import {
   HeaderComponent,
   InterestsComponent,
   SearchComponent,
+  ConfirmWishDialogComponent,
   SharedModule,
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
@@ -45,7 +46,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatPaginatorModule} from "@angular/material/paginator";
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ValidateEmailComponent,
     InterestsComponent,
     SearchComponent,
+    ConfirmWishDialogComponent,
     UserCenterComponent,
     CardComponent,
     CardFluidComponent,

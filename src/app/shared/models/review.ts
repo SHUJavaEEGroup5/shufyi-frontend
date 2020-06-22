@@ -1,9 +1,11 @@
 export class ReviewFromOne {
-    rateTime: string;
-    teacher: string;
-    score: number;
-    useful: number;
-    comment: string;
+    courseId: string;
+    trimester: string;
+    createTime: string;
+    teacherName: string;
+    rate: number;
+    upVoterNum: number;
+    content: string;
 }
 export class ReviewFromMulti extends ReviewFromOne{
     alt: string;

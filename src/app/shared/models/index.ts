@@ -7,3 +7,6 @@ export * from './simple-search-response';
 export * from './username-request';
 export * from './userInfo';
 export * from './review';
+export * from './wish-response';
+export * from './wish-request';
+export * from './confirm-dialog-data';

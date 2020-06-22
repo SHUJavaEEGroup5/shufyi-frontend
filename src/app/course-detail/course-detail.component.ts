@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AddReviewDialogComponent } from '../shared/components';
+import {Component, Inject, OnInit} from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, Route, ActivatedRoute } from '@angular/router';
+import {AddReviewDialogComponent, ConfirmWishDialogComponent} from '../shared/components';
+import { WishListService } from '../shared/services';
+import { WishRequest, ConfirmDialogData } from '../shared/models';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-course-detail',
@@ -60,9 +66,13 @@ export class CourseDetailComponent implements OnInit {
   ];
 
   selectedTeacherId = -1;
+  currentCourseId: string;
 
   constructor(
     public dialog: MatDialog,
+    private wishListService: WishListService,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
   ) {}
 
   get reviewsQueryParams() {
@@ -85,7 +95,43 @@ export class CourseDetailComponent implements OnInit {
     });
   }
 
+  addNewWish() {
+    const wishRequest = new WishRequest(this.currentCourseId);
+    this.wishListService.addWish(wishRequest)
+        .subscribe(
+            (data) => {
+              this.openNewWishDialog();
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+              if (err.status === 400) {
+                this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+              } else if (err.status > 0) {
+                this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+              } else {
+                this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+              }
+            },
+    );
+    // mock
+    this.openNewWishDialog();
+  }
+
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.currentCourseId = params.get('courseId');
+    });
+  }
+
+  openNewWishDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmWishDialogComponent, {
+      width: '720px',
+      data: new ConfirmDialogData(this.course.courseName, this.course.courseNumber,
+          this.course.credits, this.course.type, this.course.college),
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 
   selectTeacher(id) {

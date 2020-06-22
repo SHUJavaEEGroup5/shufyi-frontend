@@ -43,29 +43,31 @@
                 <div>
                     <app-layout-card *ngFor="let review of reviews.reviews" class="review-card">
                         <mat-card-header class="review-card__meta">
-                            <img [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
+                            <img (click)="personalPage(userInfo.username)" [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
                             <mat-card-title>
                                 {{userInfo.username}}
                             </mat-card-title>
                             <mat-card-subtitle>
                                 <dl>
                                     <dt>选课时间：</dt>
-                                    <dd>{{review.rateTime}}</dd>
+                                    <dd>{{review.trimester}}</dd>
                                     <dt>教师：</dt>
-                                    <dd>{{review.teacher}}</dd>
+                                    <dd>{{review.teacherName}}</dd>
+                                    <dt>评论时间：</dt>
+                                    <dd>{{review.createTime}}</dd>
                                     <dt>评价：</dt>
-                                    <dd>{{getStarts(review.score)}}</dd>
+                                    <dd>{{getStarts(review.rate)}}</dd>
                                 </dl>
                             </mat-card-subtitle>
                         </mat-card-header>
                         <mat-card-content>
-                            <p>{{review.comment}}</p>
+                            <p>{{review.content}}</p>
                         </mat-card-content>
                         <mat-divider></mat-divider>
                         <mat-card-actions>
                             <button class="icon-btn" color="accent" mat-stroked-button>
                                 <mat-icon>arrow_drop_up</mat-icon>
-                                {{review.useful}}人觉得有用
+                                {{review.upVoterNum}}人觉得有用
                             </button>
                         </mat-card-actions>
                     </app-layout-card>
@@ -105,7 +107,39 @@
     </app-layout-content-main>
     <app-layout-content-aside>
         <app-layout-card>
+            <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+                <mat-icon color="warn">favorite</mat-icon>
+            </button>
             心愿单
+        </app-layout-card>
+        <app-layout-card>
+            未完成
+            <mat-selection-list #wishes (selectionChange)="onSelection(wishes.selectedOptions.selected)">
+                <mat-list-option *ngFor="let wish of wishList" [value]="wish.id">
+                    {{wish.courseName}}
+                </mat-list-option>
+            </mat-selection-list>
+            <mat-action-list>
+                <button (click)="completeWishes()" mat-list-item aria-label="完成这些心愿">
+                    <mat-icon color="accent">check_circle</mat-icon> 已实现
+                </button>
+                <button (click)="removeWishes()" mat-list-item aria-label="移除这些心愿">
+                    <mat-icon>delete</mat-icon> 放弃
+                </button>
+            </mat-action-list>
+        </app-layout-card>
+        <app-layout-card>
+            已完成
+            <mat-selection-list #wishes (selectionChange)="onSelectionFinished(wishes.selectedOptions.selected)">
+                <mat-list-option *ngFor="let wishFinished of wishListFinished" [value]="wishFinished.id">
+                    {{wishFinished.courseName}}
+                </mat-list-option>
+            </mat-selection-list>
+            <mat-action-list>
+                <button (click)="removeWishes()" mat-list-item aria-label="移除这些心愿">
+                    <mat-icon>delete</mat-icon> 移除
+                </button>
+            </mat-action-list>
         </app-layout-card>
     </app-layout-content-aside>
 </app-layout-content>

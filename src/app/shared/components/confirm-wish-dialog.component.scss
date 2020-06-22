@@ -1,0 +1,38 @@
+@import "~@angular/material/theming";
+
+.dialog-title {
+  color: map-get($mat-blue-grey, 500);
+
+  strong {
+    color: $dark-primary-text;
+  }
+}
+
+.score-field {
+  margin-bottom: 12px;
+
+  .score-field-label {
+    line-height: 36px;
+    transform: scale(0.75);
+    color: $dark-secondary-text;
+  }
+
+  .btn-star {
+    font-size: 24px;
+    color: map-get($mat-grey, 300);
+  }
+
+  .btn-star.active {
+    color: map-get($mat-amber, 500);
+  }
+
+  .score {
+    font-size: 22px;
+    line-height: 36px;
+    margin-left: 12px;
+  }
+}
+
+.content-field {
+  width: 100%;
+}
