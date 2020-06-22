@@ -1,11 +1,13 @@
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http'; // apply interceptor
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import {
+  AuthInterceptorService,
   CardComponent,
   CardFluidComponent,
   ContentAsideComponent,
@@ -15,6 +17,7 @@ import {
   HeaderComponent,
   InterestsComponent,
   SearchComponent,
+  ConfirmWishDialogComponent,
   SharedModule,
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
@@ -25,6 +28,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { SignupComponent } from './signup/signup.component';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
+import { UserCenterComponent } from './user-center/user-center.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -41,8 +45,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ValidateEmailComponent,
     InterestsComponent,
     SearchComponent,
+    ConfirmWishDialogComponent,
+    UserCenterComponent,
     CardComponent,
     CardFluidComponent,
     ContentComponent,
@@ -91,11 +98,21 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatStepperModule,
     MatAutocompleteModule,
+    MatTabsModule,
     MatPaginatorModule,
   ],
   providers: [
-    MatDatepickerModule,
-    MatNativeDateModule,
+    {
+      provide: MatDatepickerModule,
+    },
+    {
+      provide: MatNativeDateModule,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

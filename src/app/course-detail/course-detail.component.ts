@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddReviewDialogComponent } from '../shared/components';
-import { CourseService } from '../shared/services';
+import { AddReviewDialogComponent, ConfirmWishDialogComponent } from '../shared/components';
+import { CourseService, WishListService } from '../shared/services';
 import { ActivatedRoute } from '@angular/router';
-import { Course } from '../shared/models';
+import { ConfirmDialogData, Course, WishRequest } from '../shared/models';
 import { switchMap } from 'rxjs/operators';
 import { Review } from '../shared/models/review';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-course-detail',
@@ -29,10 +32,14 @@ export class CourseDetailComponent implements OnInit {
 
   selectedTeacherId = -1;
 
+  currentCourseId = -1;
+
   constructor(
     public dialog: MatDialog,
     private courseService: CourseService,
     private route: ActivatedRoute,
+    private wishListService: WishListService,
+    private snackBar: MatSnackBar,
   ) {}
 
   get reviewsQueryParams() {
@@ -69,7 +76,10 @@ export class CourseDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      switchMap((params) => this.courseService.getCourse(parseInt(params.get('id'), 10))),
+      switchMap((params) => {
+        this.currentCourseId = parseInt(params.get('id'), 10);
+        return this.courseService.getCourse(parseInt(params.get('id'), 10));
+      }),
     ).subscribe((data) => {
       this.course = data;
       console.log(data);
@@ -79,6 +89,39 @@ export class CourseDetailComponent implements OnInit {
     ).subscribe((data) => {
       this.reviews = data;
       console.log(data);
+    });
+  }
+
+  addNewWish() {
+    const wishRequest = new WishRequest(this.currentCourseId);
+    this.wishListService.addWish(wishRequest)
+      .subscribe(
+        (data) => {
+          this.openNewWishDialog();
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.status === 400) {
+            this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+          } else if (err.status > 0) {
+            this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+          } else {
+            this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+          }
+        },
+      );
+    // mock
+    this.openNewWishDialog();
+  }
+
+  openNewWishDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmWishDialogComponent, {
+      width: '720px',
+      data: new ConfirmDialogData(this.course.courseName, this.course.courseNumber,
+        this.course.credits, this.course.type, this.course.college),
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
     });
   }
 

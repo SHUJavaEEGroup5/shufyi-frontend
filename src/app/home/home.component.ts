@@ -21,6 +21,6 @@ export class HomeComponent implements OnInit {
   }
 
   personalPage() {
-    this.router.navigateByUrl('/person', { replaceUrl: true }).then((r) => {});
+    this.router.navigateByUrl('/people/123456', { replaceUrl: true }).then((r) => {});
   }
 }

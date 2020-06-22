@@ -1,0 +1,476 @@
+@import "~@angular/material/theming";
+
+.course-meta-card {
+  .course-meta-wrapper {
+    padding: 12px 24px;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  }
+
+  .course-name {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    color: map-get($mat-blue-grey, 600);
+  }
+
+  .course-name-en {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 12px;
+    color: map-get($mat-blue-grey, 300);
+  }
+
+  .course-actions-group {
+    float: right;
+  }
+
+  dl {
+    dt, dd {
+      display: inline-block;
+    }
+
+    dt {
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0 1.5em 0 0;
+    }
+
+    dd:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .reviews-stat {
+    line-height: 36px;
+
+    .score {
+      font-size: 32px;
+      display: inline-block;
+      vertical-align: middle;
+      color: $dark-primary-text;
+    }
+
+    .stars {
+      font-size: 18px;
+      line-height: 20px;
+      display: inline-block;
+      margin-left: 12px;
+      vertical-align: middle;
+      color: map-get($mat-amber, 700);
+
+      small {
+        font-size: 12px;
+        line-height: 16px;
+        color: $dark-secondary-text;
+      }
+    }
+  }
+}
+
+.layout-content-2 {
+  margin-top: 0;
+}
+
+.review-card {
+  .review-card__meta {
+    mat-card-title {
+      font-size: 15px;
+      margin-bottom: 9px;
+    }
+
+    mat-card-subtitle {
+      font-size: 13px;
+    }
+
+    mat-card-content {
+      font-size: 15px;
+    }
+
+    dl {
+      margin: 0;
+
+      dt, dd {
+        display: inline-block;
+      }
+
+      dt {
+        font-weight: 700;
+      }
+
+      dd {
+        margin: 0 1em 0 0;
+      }
+
+      dd:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .icon-btn {
+    padding-left: 8px !important;
+  }
+}
+
+.course-meta-list-item {
+  @include mat-elevation(4, $mat-elevation-color, 0.1);
+
+  .course-meta-list-item__content {
+    font-size: 14px;
+    text-align: justify;
+    color: $dark-secondary-text;
+  }
+
+  .course-meta-list-item__content-en {
+    font-size: 12px;
+    color: $dark-secondary-text;
+  }
+}
+
+.ProfileHeader {
+  position: relative;
+  width: 1000px;
+  padding: 0 16px;
+  margin: 10px auto;
+}
+button {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+body, button, p, pre {
+  margin: 0;
+}
+body {
+  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #f6f6f6;
+  -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+}
+.Card {
+  margin-bottom: 10px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 3px rgba(26,26,26,.1);
+  box-shadow: 0px 1px 3px rgba(26,26,26,0.1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:last-child.Card {
+  margin-bottom: 0px;
+}
+.ProfileHeader-wrapper {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ProfileHeader-main {
+  position: relative;
+  margin: 0 20px 24px;
+}
+.UserAvatarEditor {
+  cursor: pointer;
+  position: relative;
+}
+.ProfileHeader-avatar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}
+.ProfileHeader-content {
+  padding-top: 16px;
+  padding-left: 32px;
+  border-left: 164px solid transparent;
+}
+.ProfileHeader-contentHead {
+  position: relative;
+  padding-right: 106px;
+  margin-bottom: 16px;
+}
+.ProfileHeader-contentBody {
+  position: relative;
+  width: 524px;
+  overflow: hidden;
+}
+.ProfileHeader-contentFooter {
+  position: relative;
+  padding-top: 8px;
+}
+.Button {
+  display: inline-block;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 32px;
+  color: #8590a6;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+  border: 1px solid;
+  border-radius: 3px;
+}
+.Button--link, .Button--plain {
+  height: auto;
+  padding: 0;
+  line-height: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+.ProfileHeader-expandButton {
+  line-height: 1;
+}
+.ProfileHeader-buttons {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+.Button--blue {
+  color: #0084ff;
+  border-color: #0084ff;
+}
+.ProfileHeader-info {
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ProfileHeader-infoItem {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ProfileHeader-iconWrapper {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  text-align: center;
+  color: #8590a6;
+}
+h1, h2, h3 {
+  margin: 0;
+  font: inherit;
+}
+.ProfileHeader-title {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ProfileHeader-name {
+  font-size: 26px;
+  font-weight: 600;
+  font-synthesis: style;
+  line-height: 30px;
+}
+.ztext {
+  word-break: break-word;
+  line-height: 1.6;
+}
+.ProfileHeader-headline {
+  margin-left: 12px;
+  font-size: 18px;
+  white-space: nowrap;
+}
+.UserAvatar {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  background-color: #fff;
+  border: 4px solid #fff;
+  border-radius: 8px;
+}
+.UploadPicture-wrapper {
+  cursor: pointer;
+}
+.UploadPicture-wrapper {
+  cursor: pointer;
+}
+.UploadPicture-wrapper {
+  cursor: pointer;
+}
+.UploadPicture-wrapper {
+  cursor: pointer;
+}
+.UploadPicture-input {
+  display: none;
+}
+.UploadPicture-input {
+  display: none;
+}
+.UploadPicture-input {
+  display: none;
+}
+.UploadPicture-input {
+  display: none;
+}
+.Mask {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1;
+  -webkit-transition: opacity .2s ease-in;
+  transition: opacity .2s ease-in;
+}
+.Mask-hidden {
+  pointer-events: none;
+  opacity: 0;
+}
+.Mask-mask {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.Mask-mask--black {
+  background: #1a1a1a;
+}
+.UserAvatarEditor-maskInner {
+  z-index: 4;
+  border: 4px solid #fff;
+  border-radius: 8px;
+}
+.Mask-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  color: #fff;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.UserAvatarEditor-cameraIcon {
+  margin-bottom: 14px;
+  fill: #fff;
+}
+.UserAvatarEditor-maskInnerText {
+  white-space: nowrap;
+}
+.Avatar {
+  background: #fff;
+  border-radius: 2px;
+}
+.Avatar--large {
+  border-radius: 4px;
+}
+.UserAvatar-inner {
+  vertical-align: top;
+}
+.UserCoverEditor {
+  position: relative;
+}
+.UserCover {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: #f6f6f6;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
+  -webkit-transition: height .3s;
+  transition: height .3s;
+}
+.UserCover--colorBlock {
+  height: 132px;
+  background: #999;
+}
+.UserCoverGuide {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
+}
+.UserCoverGuide-inner {
+  position: relative;
+  z-index: 2;
+  float: right;
+  padding: 24px;
+}
+ol, ul {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style-type: none;
+}
+.UserCoverGuide-item, .UserCoverGuide-items {
+  width: 100%;
+  height: 100%;
+}
+.UserCoverGuide-item {
+  position: absolute;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+.UserCoverGuide-buttonContainer {
+  margin-bottom: 14px;
+  text-align: right;
+}
+.UserCoverGuide-dialog {
+  position: relative;
+  width: 286px;
+  padding: 22px 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  opacity: 0;
+  -webkit-transform: translateY(-10px);
+  transform: translateY(-10px);
+  -webkit-transition: opacity .3s,-webkit-transform .3s;
+  transition: opacity .3s,-webkit-transform .3s;
+  transition: opacity .3s,transform .3s;
+  transition: opacity .3s,transform .3s,-webkit-transform .3s;
+}
+.UserCoverGuide-dialogDescription, .UserCoverGuide-dialogHead {
+  margin: 0 0 6px;
+}
+.UserCoverGuide-dialogContent {
+  font-size: 14px;
+  line-height: 1.7;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.UserCoverGuide-dialogContent a {
+  color: #175199;
+  cursor: pointer;
+}
+.DynamicColorButton {
+  color: #d3d3d3;
+  -webkit-transition: color,border-color .3s;
+  transition: color,border-color .3s;
+}
+.DynamicColorButton svg {
+  fill: currentColor;
+}
+.mat-icon {
+  vertical-align: middle;
+}
