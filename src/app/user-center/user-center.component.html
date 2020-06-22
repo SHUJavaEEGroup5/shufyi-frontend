@@ -39,8 +39,15 @@
     <app-layout-content-main>
         <app-layout-card>
         <mat-tab-group dynamicHeight>
-            <mat-tab label="最近评价">
-                <div>
+            <mat-tab label="最新动态">
+                <app-layout-card  class="review-card">
+                    <mat-card-header class="review-card__meta">
+                        <mat-card-title>
+                            该用户很懒 还没有动态哦
+                        </mat-card-title>
+                    </mat-card-header>
+                </app-layout-card>
+                <div *ngIf="reviews !== undefined">
                     <app-layout-card *ngFor="let review of reviews.reviews" class="review-card">
                         <mat-card-header class="review-card__meta">
                             <img (click)="personalPage(userInfo.username)" [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
@@ -81,13 +88,13 @@
                     </mat-paginator>
                 </app-layout-card>
             </mat-tab>
-            <mat-tab label="个人兴趣">
+            <mat-tab *ngIf="isSelf" label="个人兴趣">
                 <div>
                     <app-interests #interestsComponent>
                     </app-interests>
                 </div>
             </mat-tab>
-            <mat-tab *ngIf="true" label="用户名更改">
+            <mat-tab *ngIf="isSelf" label="账号管理">
                 <div>
                     <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
                         <mat-form-field>
@@ -107,36 +114,43 @@
     </app-layout-content-main>
     <app-layout-content-aside>
         <app-layout-card>
-            <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+            <button (click)="updateWishList()" mat-icon-button color="primary" aria-label="心愿课">
                 <mat-icon color="warn">favorite</mat-icon>
             </button>
-            心愿单
+            心愿课
         </app-layout-card>
         <app-layout-card>
-            未完成
+            <div *ngIf="wishListFinished !== undefined">未完成</div>
+            <div *ngIf="wishListFinished === undefined && wishList === undefined">To-Do</div>
             <mat-selection-list #wishes (selectionChange)="onSelection(wishes.selectedOptions.selected)">
+                <div *ngIf="wishList">
                 <mat-list-option *ngFor="let wish of wishList" [value]="wish.id">
                     {{wish.courseName}}
                 </mat-list-option>
+                </div>
+                <mat-list-option *ngIf="wishList === undefined">
+                    还没有添加过心愿课 <br>
+                    快去行动吧
+                </mat-list-option>
             </mat-selection-list>
-            <mat-action-list>
+            <mat-action-list *ngIf="isSelf&&wishList&&wishListIds&&wishListIds!==[]&&wishList!==[]">
                 <button (click)="completeWishes()" mat-list-item aria-label="完成这些心愿">
                     <mat-icon color="accent">check_circle</mat-icon> 已实现
                 </button>
-                <button (click)="removeWishes()" mat-list-item aria-label="移除这些心愿">
+                <button (click)="removeWishes(wishListIds)" mat-list-item aria-label="移除这些心愿">
                     <mat-icon>delete</mat-icon> 放弃
                 </button>
             </mat-action-list>
         </app-layout-card>
-        <app-layout-card>
+        <app-layout-card *ngIf="wishListFinished!== undefined">
             已完成
             <mat-selection-list #wishes (selectionChange)="onSelectionFinished(wishes.selectedOptions.selected)">
                 <mat-list-option *ngFor="let wishFinished of wishListFinished" [value]="wishFinished.id">
                     {{wishFinished.courseName}}
                 </mat-list-option>
             </mat-selection-list>
-            <mat-action-list>
-                <button (click)="removeWishes()" mat-list-item aria-label="移除这些心愿">
+            <mat-action-list *ngIf="isSelf&&wishListFinished&&wishListIdsFinished&&wishListIdsFinished!==[]&&wishListFinished!==[]">
+                <button (click)="removeWishes(wishListIdsFinished)" mat-list-item aria-label="移除这些心愿">
                     <mat-icon>delete</mat-icon> 移除
                 </button>
             </mat-action-list>

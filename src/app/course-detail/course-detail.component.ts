@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, Route, ActivatedRoute } from '@angular/router';
-import {AddReviewDialogComponent, ConfirmWishDialogComponent} from '../shared/components';
+import { AddReviewDialogComponent, ConfirmWishDialogComponent } from '../shared/components';
 import { WishListService } from '../shared/services';
-import { WishRequest, ConfirmDialogData } from '../shared/models';
+import { WishRequest, ConfirmDialogData, WishAddRequest } from '../shared/models';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
@@ -73,6 +73,7 @@ export class CourseDetailComponent implements OnInit {
     private wishListService: WishListService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {}
 
   get reviewsQueryParams() {
@@ -96,8 +97,11 @@ export class CourseDetailComponent implements OnInit {
   }
 
   addNewWish() {
-    const wishRequest = new WishRequest(this.currentCourseId);
-    this.wishListService.addWish(wishRequest)
+    // mock
+    // const wishRequest = new WishRequest(this.currentCourseId);
+    // test
+    const wishAddRequest = new WishAddRequest('1');
+    this.wishListService.addWish(wishAddRequest)
         .subscribe(
             (data) => {
               this.openNewWishDialog();
@@ -114,7 +118,7 @@ export class CourseDetailComponent implements OnInit {
             },
     );
     // mock
-    this.openNewWishDialog();
+    // this.openNewWishDialog();
   }
 
   ngOnInit(): void {

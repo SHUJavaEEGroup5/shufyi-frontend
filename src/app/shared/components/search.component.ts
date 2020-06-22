@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  options: SimpleSearchResponse[] = [{ id: '1', courseName: 'Java EE', courseNumber: '0860654654', credit: 5, type: '专业选修' }];
+  options: SimpleSearchResponse[] = [{ id: '1', courseName: 'Java EE', courseNumber: '1', credit: 5, type: '专业选修' }];
   toSearch: string;
 
   constructor(
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   handleSelected(option: SimpleSearchResponse) {
     console.log(option);
-    this.router.navigateByUrl('/courses/' + option.courseNumber, { replaceUrl: false }).then(() => {
+    this.router.navigateByUrl('/courses/' + option.id, { replaceUrl: false }).then(() => {
       this.snackBar.open('查找中', undefined, { duration: 2000 });
     });
   }

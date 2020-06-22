@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WishRequest, WishResponse } from '../models';
+import { WishAddRequest, WishRequest, WishResponse } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -11,8 +11,8 @@ export class WishListService {
         private http: HttpClient,
     ) {}
 
-    addWish(wishRequest: WishRequest): Observable<void> {
-        return this.http.post<void>('/api/wish', wishRequest);
+    addWish(wishAddRequest: WishAddRequest): Observable<void> {
+        return this.http.post<void>('/api/wish', wishAddRequest);
     }
 
     getWishList(username: string|undefined): Observable<WishResponse[]> {
