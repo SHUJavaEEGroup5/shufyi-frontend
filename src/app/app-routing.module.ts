@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, pathMatch: 'full' },
   { path: 'verify/:token', component: ValidateEmailComponent, pathMatch: 'full' },
+  { path: 'admin/courses', component: AdminCoursesComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

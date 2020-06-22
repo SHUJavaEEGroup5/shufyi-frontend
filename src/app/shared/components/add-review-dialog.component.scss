@@ -13,7 +13,9 @@
 
   .score-field-label {
     line-height: 36px;
+    display: inline-block;
     transform: scale(0.75);
+    transform-origin: left;
     color: $dark-secondary-text;
   }
 

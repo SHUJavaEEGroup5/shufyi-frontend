@@ -41,11 +41,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseDetailComponent,
+    AdminCoursesComponent,
     HomeComponent,
     LoginComponent,
     SignupComponent,
@@ -88,6 +91,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatProgressSpinnerModule,
     MatStepperModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
   ],
   providers: [
     MatDatepickerModule,
