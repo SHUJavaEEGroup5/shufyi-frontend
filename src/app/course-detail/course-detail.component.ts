@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddReviewDialogComponent, ConfirmWishDialogComponent } from '../shared/components';
+import { AddReviewDialogComponent, ConfirmWishDialogComponent, ReviewFromOne } from '../shared';
 import { CourseService, WishListService } from '../shared/services';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogData, Course, WishRequest } from '../shared/models';
 import { switchMap } from 'rxjs/operators';
-import { Review } from '../shared/models/review';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -18,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CourseDetailComponent implements OnInit {
   course?: Course = null;
 
-  reviews: Review[] = [];
+  reviews: ReviewFromOne[] = [];
 
   teachers = [
     {
@@ -93,7 +92,7 @@ export class CourseDetailComponent implements OnInit {
   }
 
   addNewWish() {
-    const wishRequest = new WishRequest(this.currentCourseId);
+    const wishRequest = new WishRequest(this.currentCourseId.toString());
     this.wishListService.addWish(wishRequest)
       .subscribe(
         (data) => {
