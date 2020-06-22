@@ -9,7 +9,7 @@ import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'courses/:courseId', component: CourseDetailComponent, pathMatch: 'full' },
+  { path: 'courses/:id', component: CourseDetailComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, pathMatch: 'full' },
   { path: 'verify/:token', component: ValidateEmailComponent, pathMatch: 'full' },

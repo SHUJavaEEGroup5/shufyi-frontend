@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { CoursesService } from '../shared/services';
+import { CourseService } from '../shared/services';
 import { MatPaginator } from '@angular/material/paginator';
 import { Course } from '../shared/models';
 import { map, startWith, switchMap } from 'rxjs/operators';
@@ -18,13 +18,13 @@ export class AdminCoursesComponent implements AfterViewInit {
   @ViewChild('coursePaginator', { static: true }) coursePaginator: MatPaginator;
 
   constructor(
-    private coursesService: CoursesService,
+    private courseService: CourseService,
   ) {}
 
   ngAfterViewInit() {
     this.coursePaginator.page.pipe(
       startWith({}),
-      switchMap(() => this.coursesService.getCourses(this.page)),
+      switchMap(() => this.courseService.getCourses(this.page)),
       map((data) => {
         this.coursesLength = data.page.totalElements;
         return data._embedded.courses;

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Course, Page } from '../models';
+import { Review } from '../models/review';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CoursesService {
+export class CourseService {
   constructor(
     private http: HttpClient,
   ) {}
@@ -14,6 +15,14 @@ export class CoursesService {
     return this.http.get<Page<Course>>('/api/courses', {
       params: new HttpParams().set('page', page.toString()),
     });
+  }
+
+  getCourse(id: number) {
+    return this.http.get<Course>(`/api/course/${id}`);
+  }
+
+  getCourseReviews(id: number) {
+    return this.http.get<Review[]>(`/api/course/${id}/reviews`);
   }
 
   createCourse(course: Course) {
