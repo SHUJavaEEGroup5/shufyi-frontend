@@ -44,13 +44,13 @@ export class InterestsComponent implements OnInit {
   @ViewChild('grade') gradeRef: ElementRef<HTMLInputElement>;
   @ViewChild('major') majorRef: ElementRef<HTMLInputElement>;
   interests: Interest[] = [
-    { value: 0, label: '负担' },
-    { value: 0, label: '友善' },
-    { value: 0, label: '困难度' },
-    { value: 0, label: '实践' },
-    { value: 0, label: '专业' },
-    { value: 0, label: '系统性' },
-    { value: 0, label: '有用' },
+    { value: 50, label: '课程量大' },
+    { value: 50, label: '教师友善' },
+    { value: 50, label: '困难度高' },
+    { value: 50, label: '实践性强' },
+    { value: 50, label: '专业性强' },
+    { value: 50, label: '系统性强' },
+    { value: 50, label: '内容有用' },
   ];
   majors1: Major[] = [
     { value: '0081', label: '伟长学院' },
@@ -226,18 +226,18 @@ export class InterestsComponent implements OnInit {
 
   formatLabel(value: number | null) {
     if (!value) {
-      return '无感';
+      return '不符';
     }
     if (value >= 100) {
-      return '重要';
+      return '符合';
     } else if (value >= 75) {
-      return '重视';
+      return '需要';
     } else if (value >= 50) {
-      return '考虑';
+      return '无谓';
     } else if (value >= 25) {
-      return '一般';
+      return '不需';
     } else {
-      return '无感';
+      return '不符';
     }
   }
 
