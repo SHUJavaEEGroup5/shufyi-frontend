@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class SearchComponent implements OnInit {
   myControl = new FormControl();
-  options: SimpleSearchResponse[] = [{ id: '1', courseName: 'Java EE', courseNumber: '1', credit: 5, type: '专业选修' }];
+  options: SimpleSearchResponse[];
   toSearch: string;
 
   constructor(
