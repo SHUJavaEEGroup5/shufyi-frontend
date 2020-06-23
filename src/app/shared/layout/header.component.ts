@@ -9,7 +9,7 @@ import { User } from '../models';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HeaderComponent implements AfterViewInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   isBrowser: boolean;
   scrollListener: (() => void) | undefined;
@@ -43,9 +43,5 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isBrowser) {
       window.removeEventListener('scroll', this.scrollListener);
     }
-  }
-
-  ngOnInit(): void {
-    this.authService.setUser(JSON.parse(window.localStorage.getItem('sf_user')));
   }
 }
