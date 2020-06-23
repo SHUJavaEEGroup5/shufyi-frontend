@@ -6,6 +6,7 @@
     <!--    <a mat-flat-button routerLink="/">核通/通选</a>-->
     <div class="spacer"></div>
     {{ user && user.username }}
+    <button (click)="logout()" *ngIf="user != null" mat-flat-button>注销</button>
     <a *ngIf="user == null" color="primary" mat-stroked-button routerLink="/login">登录</a>
     <a *ngIf="user == null" color="primary" mat-flat-button routerLink="/signup">注册</a>
   </div>

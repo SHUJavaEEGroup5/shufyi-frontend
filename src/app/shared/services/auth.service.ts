@@ -26,6 +26,7 @@ export class AuthService {
   }
 
   setUser(user?: User) {
+    window.localStorage.setItem('sf_user', JSON.stringify(user));
     this.user.next(user || null);
   }
 

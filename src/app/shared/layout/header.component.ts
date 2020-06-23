@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../services';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { User } from '../models';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements AfterViewInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   isBrowser: boolean;
   scrollListener: (() => void) | undefined;
@@ -33,10 +33,19 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  logout() {
+    this.authService.setUser(null);
+    this.authService.destroyToken();
+  }
+
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     if (this.isBrowser) {
       window.removeEventListener('scroll', this.scrollListener);
     }
+  }
+
+  ngOnInit(): void {
+    this.authService.setUser(JSON.parse(window.localStorage.getItem('sf_user')));
   }
 }

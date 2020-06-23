@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CourseService, ReviewService } from '../services';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -11,14 +13,19 @@ export class AddReviewDialogComponent implements OnInit {
 
   score = 4;
 
-  teachers = ['邹国兵', '宋波'];
-
   constructor(
     private formBuilder: FormBuilder,
+    private courseService: CourseService,
+    private reviewService: ReviewService,
+    public dialogRef: MatDialogRef<AddReviewDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      courseId: number;
+      courseName: string;
+    },
   ) {
     this.reviewForm = this.formBuilder.group({
       trimester: ['', Validators.required],
-      teacher: ['', Validators.required],
+      teacherName: ['', Validators.required],
       content: ['', Validators.required],
     });
   }
@@ -38,4 +45,18 @@ export class AddReviewDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  submit() {
+    this.reviewService.createReview({
+      courseId: this.data.courseId,
+      rate: this.score,
+      trimester: this.reviewForm.get('trimester').value,
+      teacherName: this.reviewForm.get('teacherName').value,
+      content: this.reviewForm.get('content').value,
+    }).subscribe((data) => {
+      console.log(data);
+      this.courseService.getCourseReviews(this.data.courseId).subscribe((value) => {
+        this.dialogRef.close(value);
+      });
+    });
+  }
 }

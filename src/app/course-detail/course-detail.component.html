@@ -35,35 +35,33 @@
   <app-layout-content-main>
     <app-layout-card>
       <mat-card-title-group class="reviews-title-group">
-        <mat-card-title class="reviews-title">评价<small>(共 3 条)</small></mat-card-title>
-        {{ t }}
+        <mat-card-title class="reviews-title">评价<small>(共 {{ reviews.length }} 条)</small></mat-card-title>
         <button (click)="openNewReviewDialog()" color="primary" mat-raised-button>
           <mat-icon>add_comment</mat-icon>
           写评价
         </button>
       </mat-card-title-group>
-      <mat-card-content class="reviews-filter">
-        <mat-chip-list>
-          <span class="teachers-header">开设此课程的教师：</span>
-          <mat-chip (click)="selectTeacher(teacher.id)" *ngFor="let teacher of teachers"
-                    [selected]="selectedTeacherId === teacher.id"
-                    selectable>{{ teacher.teacherName }}</mat-chip>
-        </mat-chip-list>
-      </mat-card-content>
+      <!--      <mat-card-content class="reviews-filter">-->
+      <!--        <mat-chip-list>-->
+      <!--          <span class="teachers-header">开设此课程的教师：</span>-->
+      <!--          <mat-chip (click)="selectTeacher(teacher.id)" *ngFor="let teacher of teachers"-->
+      <!--                    [selected]="selectedTeacherId === teacher.id"-->
+      <!--                    selectable>{{ teacher.teacherName }}</mat-chip>-->
+      <!--        </mat-chip-list>-->
+      <!--      </mat-card-content>-->
     </app-layout-card>
     <app-layout-card *ngFor="let review of reviews" class="review-card">
       <mat-card-header class="review-card__meta">
         <img alt="头像" mat-card-avatar src="https://placekitten.com/200/200" />
         <mat-card-title>
-<!--          {{ review }}-->123
-          {{review}}
+          {{ review.publisher.username }}
         </mat-card-title>
         <mat-card-subtitle>
           <dl>
             <dt>选课时间：</dt>
             <dd>{{ review.trimester }}</dd>
             <dt>教师：</dt>
-            <dd>邹国兵</dd>
+            <dd>{{ review.teacherName }}</dd>
             <dt>评价：</dt>
             <dd>{{ getStars(review.rate) }}</dd>
           </dl>

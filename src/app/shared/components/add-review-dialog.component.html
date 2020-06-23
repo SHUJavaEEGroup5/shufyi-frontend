@@ -1,31 +1,29 @@
 <h2 class="dialog-title" mat-dialog-title>
   为 <strong>Java EE开发技术</strong> 添加评价：
 </h2>
-<div mat-dialog-content>
+<form (ngSubmit)="submit()" [formGroup]="reviewForm" mat-dialog-content>
   <div class="score-field">
     <span class="score-field-label">你的评分</span>
     <button (click)="score = i" *ngFor="let i of [1, 2, 3, 4, 5]" [class.active]="i <= score" [matTooltip]="i + '分'"
-            class="btn-star" mat-icon-button matTooltipPosition="below">★
+            class="btn-star" mat-icon-button matTooltipPosition="below" type="button">★
     </button>
     <span class="score">{{ score }}分</span>
   </div>
   <mat-form-field appearance="standard">
     <mat-label>选课时间</mat-label>
-    <mat-select>
+    <mat-select formControlName="trimester">
       <mat-option *ngFor="let trimester of trimesters" [value]="trimester">{{ trimester }}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="standard">
     <mat-label>教师</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let teacher of teachers" [value]="teacher">{{ teacher }}</mat-option>
-    </mat-select>
+    <input formControlName="teacherName" matInput />
   </mat-form-field>
   <mat-form-field appearance="standard" class="content-field">
     <mat-label>评价正文</mat-label>
-    <textarea matInput matTextareaAutosize placeholder="对课程的看法和评价"></textarea>
+    <textarea formControlName="content" matInput matTextareaAutosize placeholder="对课程的看法和评价"></textarea>
   </mat-form-field>
-</div>
-<div mat-dialog-actions>
   <button color="primary" mat-raised-button>提交评价</button>
-</div>
+</form>
+<!--<div mat-dialog-actions>-->
+<!--</div>-->
