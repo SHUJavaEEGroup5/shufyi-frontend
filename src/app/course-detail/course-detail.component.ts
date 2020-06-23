@@ -71,6 +71,7 @@ export class CourseDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRecommend();
     this.route.paramMap.pipe(
       switchMap((params) => {
         this.currentCourseId = parseInt(params.get('id'), 10);
@@ -121,6 +122,8 @@ export class CourseDetailComponent implements OnInit {
               for (const item of data) {
                 this.recommendSelected.push(new WishAddRequest(item.courseId));
               }
+              console.log('courses: ' + this.recommendCourses);
+              console.log('selected:' + this.recommendSelected);
               this.openNewWishDialog();
             },
             (err: HttpErrorResponse) => {
