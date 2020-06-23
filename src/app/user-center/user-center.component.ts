@@ -449,8 +449,10 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             (data) => {
                 console.log(data);
                 if (review.isVoted) {
+                    review.upVoterNum--;
                     this.snackBar.open('取消成功', undefined, {duration: 2000});
                 } else {
+                    review.upVoterNum++;
                     this.snackBar.open('赞同成功', undefined, {duration: 2000});
                 }
                 review.isVoted = !review.isVoted;
