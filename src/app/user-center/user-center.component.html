@@ -42,10 +42,13 @@
             <mat-tab label="最新动态">
                 <app-layout-card  class="review-card">
                     <mat-card-header class="review-card__meta">
-                        <mat-card-title>
+                        <mat-card-title *ngIf="!isLoading&&reviews.length === 0">
                             该用户很懒 还没有动态哦
                         </mat-card-title>
                     </mat-card-header>
+                    <mat-card-content *ngIf="isLoading">
+                        <mat-spinner></mat-spinner>
+                    </mat-card-content>
                 </app-layout-card>
                 <div *ngIf="reviews !== undefined">
                     <app-layout-card *ngFor="let review of reviews" class="review-card">
@@ -74,8 +77,8 @@
                         <mat-card-actions>
                             <button (click)="changeVoteStatus(review)" class="icon-btn" color="accent" mat-stroked-button>
                                 <mat-icon>arrow_drop_up</mat-icon>
-                                <div *ngIf="review.isVoted">你</div><div *ngIf="review.isVoted&&review.upVoterNum > 1">和{{review.upVoterNum - 1}}人</div><div *ngIf="review.isVoted">觉得有用</div>
-                                <div *ngIf="!review.isVoted">{{review.upVoterNum}}人觉得有用</div>
+                                <span *ngIf="review.voted">你</span><span *ngIf="review.voted&&review.upVoterNum > 1">和{{review.upVoterNum - 1}}人</span><span *ngIf="review.voted">觉得有用</span>
+                                <span *ngIf="!review.voted">{{review.upVoterNum}}人觉得有用</span>
                             </button>
                         </mat-card-actions>
                     </app-layout-card>
@@ -97,6 +100,7 @@
             </mat-tab>
             <mat-tab *ngIf="isSelf" label="账号管理">
                 <div>
+                    <div>修改用户名</div>
                     <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
                         <mat-form-field>
                             <mat-label>用户名</mat-label>
@@ -107,6 +111,25 @@
                         <button (click)="submitUsername()" [disabled]="" color="primary" mat-raised-button>
                             确定
                         </button>
+                    </form>
+                    <div>修改密码</div>
+                    <form (ngSubmit)="onSubmitNewPassword()" [formGroup]="changePasswordForm">
+                        <div>
+                            <mat-form-field>
+                                <mat-label>新密码</mat-label>
+                                <input #newPassword formControlName="newPassword" matInput type="text">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field>
+                                <mat-label>再次输入</mat-label>
+                                <input #passwordAgain formControlName="passwordAgain" matInput type="password">
+                                <mat-hint *ngIf="passwordAgain !== newPassword">两次输入 不一致</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="form__submit-container">
+                            <button [disabled]="!changePasswordForm.valid || newPassword !== passwordAgain" color="primary" mat-raised-button>确认</button>
+                        </div>
                     </form>
                 </div>
             </mat-tab>

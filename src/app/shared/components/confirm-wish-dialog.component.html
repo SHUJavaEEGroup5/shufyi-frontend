@@ -4,6 +4,32 @@
         {{data.courseName}} 已经添加至您的心愿课
     </div>
 </div>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
-</div>
+<mat-divider></mat-divider>
+<mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList>
+        <mat-chip
+                *ngFor="let course of data.courses"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(course.courseId)">
+            {{course.courseName}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+                placeholder="为您推荐的课程"
+                [formControl]="courseCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let course of data.courses" [value]="course.courseId">
+            {{courseName}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+感兴趣？
+<button (click)="addBatch()" mat-list-item aria-label="添加这些心愿">
+    <mat-icon color="primary">check_circle</mat-icon> 添加至心愿单
+</button>

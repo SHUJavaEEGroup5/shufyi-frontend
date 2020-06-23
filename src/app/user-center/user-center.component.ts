@@ -18,6 +18,7 @@ import { Major, School } from '../shared/components';
 
 export class UserCenterComponent implements OnInit, OnDestroy {
     usernameForm: FormGroup;
+    changePasswordForm: FormGroup;
     public isSetUsername: boolean;
     public isSelf: boolean;
     private currentPeople: string;
@@ -34,6 +35,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     public wishListIdsFinished: WishRequest[];
     public wishList: WishResponse[];
     public wishListFinished: WishResponse[];
+    public isLoading: boolean;
 
     // major info
     majors1: Major[] = [
@@ -207,9 +209,14 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.usernameForm = this.formBuilder.group({
             username: ['', Validators.required],
         });
+        this.changePasswordForm = this.formBuilder.group({
+            newPassword: ['', Validators.required],
+            passwordAgain: ['', Validators.required],
+        });
     }
 
     ngOnInit(): void {
+        this.isLoading = true;
         // fetch user info to display
         this.route.paramMap.subscribe(params => {
             this.currentPeople = params.get('username');
@@ -220,16 +227,11 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.personalService.getUserInfo(this.currentPeople).subscribe(
             (data) => {
                 console.log(data);
-                if (data.email !== undefined) {
-                    this.userInfo = data;
+                this.userInfo = new UserInfo(data.username, data.grade, this.getMajorFromCode(data.major), data.email, data.src);
+                console.log(this.userInfo);
+                if (data.email !== undefined && data.email !== null) {
                     this.isSelf = true;
-                } else {
-                    this.userInfo.username = data.username;
-                    this.userInfo.grade = data.grade;
-                    this.userInfo.major = data.major;
-                    this.userInfo.src = data.src;
                 }
-                this.userInfo.major = this.getMajorFromCode(data.major);
                 this.updateWishList();
                 this.updateReviews();
             },
@@ -266,6 +268,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     submitUsername() {
+        if (!this.isSelf) { return; }
         this.personalService.setUserName(this.usernameForm.value).subscribe(
             (data) => {
                 console.log(data);
@@ -301,6 +304,8 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 console.log(data);
                 this.reviews = data;
                 this.totalRecordNumber = data.length;
+                this.isLoading = false;
+                console.log('isLoading:' + this.isLoading);
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -335,6 +340,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     completeWishes() {
+        if (!this.isSelf) { return; }
         if (this.wishListIds === []) { return; }
         this.wishListService.completeWish(this.wishListIds).subscribe(
             (data) => {
@@ -355,6 +361,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     removeWishes(ids) {
+        if (!this.isSelf) { return; }
         if (ids === undefined || ids === []) { return; }
         this.wishListService.deleteWish(ids).subscribe(
             (data) => {
@@ -375,6 +382,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     updateWishList() {
+        if (!this.isSelf) { return; }
         let toFetch = this.currentPeople;
         if (this.isSelf) {
             toFetch = null;
@@ -419,6 +427,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     onSelection(options: MatListOption[]) {
+        if (!this.isSelf) { return; }
         this.wishListIds = [];
         for (const wishId of options.map(o => o.value)) {
             this.wishListIds.push(new WishRequest(wishId));
@@ -427,6 +436,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     onSelectionFinished(options: MatListOption[]) {
+        if (!this.isSelf) { return; }
         this.wishListIdsFinished = [];
         for (const wishId of options.map(o => o.value)) {
             this.wishListIdsFinished.push(new WishRequest(wishId));
@@ -437,23 +447,27 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     getMajorFromCode(code: string) {
         for (const school of this.schools) {
             for (const major of school.majors) {
+                // console.log(major.value + '  ' + code);
                 if (code === major.value) {
-                    return major.value;
+                    return major.label;
                 }
             }
         }
     }
 
     changeVoteStatus(review: ReviewFromOne) {
+        // to-do login require
         this.reviewService.reverseVoteStatus(review.reviewId).subscribe(
             (data) => {
                 console.log(data);
-                if (review.isVoted) {
+                if (review.voted) {
+                    review.upVoterNum--;
                     this.snackBar.open('取消成功', undefined, {duration: 2000});
                 } else {
+                    review.upVoterNum++;
                     this.snackBar.open('赞同成功', undefined, {duration: 2000});
                 }
-                review.isVoted = !review.isVoted;
+                review.voted = !review.voted;
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -465,6 +479,9 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                     this.snackBar.open('出现了网络错误，请稍后重试…', undefined, {duration: 5000});
                 }
             },
-        )
+        );
+    }
+    onSubmitNewPassword() {
+
     }
 }

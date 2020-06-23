@@ -15,6 +15,10 @@ export class WishListService {
         return this.http.post<void>('/api/wish', wishAddRequest);
     }
 
+    addWishBatch(wishAddRequests: WishAddRequest[]): Observable<void> {
+        return this.http.post<void>('/api/wish/batch', wishAddRequests);
+    }
+
     getWishList(username: string|undefined): Observable<WishResponse[]> {
         return this.http.get<WishResponse[]>('/api/wish?user=' + username);
     }
