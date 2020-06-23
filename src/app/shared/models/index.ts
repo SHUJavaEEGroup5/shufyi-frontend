@@ -13,3 +13,4 @@ export * from './confirm-dialog-data';
 export * from './wish-add-request';
 export * from './course';
 export * from './page';
+export * from './review-vote-request';
