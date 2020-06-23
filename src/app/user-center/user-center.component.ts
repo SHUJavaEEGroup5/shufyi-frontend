@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { AuthService, PersonalService, ReviewService, WishListService } from '../shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PaginationReviewFromOne, ReviewFromOne, User, UserInfo, WishRequest, WishResponse } from '../shared/models';
+import { ReviewFromOne, User, UserInfo, WishRequest, WishResponse } from '../shared/models';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PageEvent } from '@angular/material/paginator';
 import { MatListOption } from '@angular/material/list';
-import {Major, School} from "../shared/components";
+import { Major, School } from '../shared/components';
 
 @Component({
     selector: 'app-user-center',
@@ -28,7 +28,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     public pageNo: number;
     public pageSize: number;
     public pageSizeOptions: number[] =  [10, 20, 50];
-    public reviews: PaginationReviewFromOne;
+    public reviews: ReviewFromOne[];
     public pageEvent: PageEvent;
     public wishListIds: WishRequest[];
     public wishListIdsFinished: WishRequest[];
@@ -222,21 +222,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         createTime: '1234'
     };
 
-    reviewsMock: PaginationReviewFromOne = {
-        pageNumber: 100,
-        reviews: [
-            this.reviewMock1,
-            this.reviewMock2,
-            this.reviewMock1,
-            this.reviewMock2,
-            this.reviewMock1,
-            this.reviewMock2,
-            this.reviewMock1,
-            this.reviewMock2,
-            this.reviewMock1,
-            this.reviewMock2,
-        ]
-    };
     wishMock1: WishResponse =  { id: '0', courseId: '1', courseName: 'Java EE', createTime: '456' };
     wishMock2: WishResponse =  { id: '1', courseId: '2', courseName: '毛泽东思想概论xxxxxxxx', createTime: '456' };
     wishMock3: WishResponse =  { id: '2', courseId: '3', courseName: 'Java EE', createTime: '456' };
@@ -310,7 +295,8 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         // this.updateWishList();
 
         console.log('wishlist: ' + this.wishList);
-        console.log(this.wishListFinished);
+        console.log('wishfinished: ' + this.wishListFinished);
+        console.log('reviews: ' + this.reviews);
     }
 
     ngOnDestroy(): void {
@@ -347,11 +333,12 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     updateReviews() {
-        this.reviewService.getReviewFromOne(this.currentPeople, this.pageEvent.pageIndex, this.pageSize).subscribe(
+        // console.log('from: ' + this.currentPeople + ' pageIndex: ' + this.pageEvent.pageIndex + ' pageSize: ' + this.pageSize);
+        this.reviewService.getReviewFromOne(this.currentPeople, 0, 10).subscribe(
             (data) => {
                 console.log(data);
                 this.reviews = data;
-                this.totalRecordNumber = data.pageNumber;
+                this.totalRecordNumber = data.length;
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -366,14 +353,19 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         );
         // mock
         // this.reviews = this.reviewsMock;
+        console.log(this.reviews);
     }
 
-    getStarts(score: number): string {
-        let temp = '';
-        for (let j = 0; j < score; j++) {
-            temp += '★ ';
+    getStars(rate: number): string {
+        const stars = [];
+        let i;
+        for (i = 0; i < rate; i++) {
+            stars.push('★');
         }
-        return temp;
+        if (rate - i >= 0.45) {
+            stars.push('☆');
+        }
+        return stars.join(' ');
     }
 
     personalPage(name: string) {

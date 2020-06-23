@@ -23,4 +23,8 @@ export class HomeComponent implements OnInit {
   personalPage() {
     this.router.navigateByUrl('/people/test', { replaceUrl: true }).then((r) => {});
   }
+
+  courseManagePage() {
+    this.router.navigateByUrl('/admin/courses', { replaceUrl: true }).then((r) => {});
+  }
 }

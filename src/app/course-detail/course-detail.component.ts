@@ -96,7 +96,7 @@ export class CourseDetailComponent implements OnInit {
     // mock
     // const wishRequest = new WishRequest(this.currentCourseId);
     // test
-    const wishAddRequest = new WishAddRequest('1');
+    const wishAddRequest = new WishAddRequest(this.currentCourseId);
     this.wishListService.addWish(wishAddRequest)
         .subscribe(
             (data) => {

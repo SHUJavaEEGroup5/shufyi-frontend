@@ -5,7 +5,7 @@
                     <div class="ProfileHeader-wrapper">
                         <div class="ProfileHeader-main">
                             <div class="UserAvatar ProfileHeader-avatar" style="top: 0px;">
-                                <img class="Avatar Avatar--large UserAvatar-inner"
+                                <img (click)="updateReviews()" class="Avatar Avatar--large UserAvatar-inner"
                                      width="150" height="150" [src]="userInfo.src" [alt]="userInfo.username + '的头像'">
                             </div>
                             <div class="ProfileHeader-content">
@@ -48,7 +48,7 @@
                     </mat-card-header>
                 </app-layout-card>
                 <div *ngIf="reviews !== undefined">
-                    <app-layout-card *ngFor="let review of reviews.reviews" class="review-card">
+                    <app-layout-card *ngFor="let review of reviews" class="review-card">
                         <mat-card-header class="review-card__meta">
                             <img (click)="personalPage(userInfo.username)" [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
                             <mat-card-title>
@@ -63,7 +63,7 @@
                                     <dt>评论时间：</dt>
                                     <dd>{{review.createTime}}</dd>
                                     <dt>评价：</dt>
-                                    <dd>{{getStarts(review.rate)}}</dd>
+                                    <dd>{{getStars(review.rate)}}</dd>
                                 </dl>
                             </mat-card-subtitle>
                         </mat-card-header>

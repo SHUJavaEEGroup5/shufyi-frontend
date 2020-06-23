@@ -1,6 +1,6 @@
 export class WishAddRequest {
-    courseId: string;
-    constructor(courseId: string) {
+    courseId: number;
+    constructor(courseId: number) {
         this.courseId = courseId;
     }
 }
