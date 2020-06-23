@@ -1,4 +1,4 @@
-<app-layout-content-fluid>
+<app-layout-content-fluid *ngIf="course != null">
   <app-layout-card-fluid class="course-meta-card">
     <app-layout-content>
       <app-layout-content-main class="course-meta-wrapper">
@@ -31,7 +31,7 @@
     </app-layout-content>
   </app-layout-card-fluid>
 </app-layout-content-fluid>
-<app-layout-content class="layout-content-2">
+<app-layout-content *ngIf="course != null" class="layout-content-2">
   <app-layout-content-main>
     <app-layout-card>
       <mat-card-title-group class="reviews-title-group">
@@ -51,25 +51,25 @@
         </mat-chip-list>
       </mat-card-content>
     </app-layout-card>
-    <app-layout-card *ngFor="let i of [1, 2, 3]" class="review-card">
+    <app-layout-card *ngFor="let review of reviews" class="review-card">
       <mat-card-header class="review-card__meta">
-        <img alt="某某的头像" mat-card-avatar src="https://placekitten.com/200/200" />
+        <img alt="头像" mat-card-avatar src="https://placekitten.com/200/200" />
         <mat-card-title>
-          一只无名的小猫{{ i }}
+<!--          {{ review }}-->123
         </mat-card-title>
         <mat-card-subtitle>
           <dl>
             <dt>选课时间：</dt>
-            <dd>19-20春</dd>
+            <dd>{{ review.trimester }}</dd>
             <dt>教师：</dt>
             <dd>邹国兵</dd>
             <dt>评价：</dt>
-            <dd>★ ★ ★ ★ ★</dd>
+            <dd>{{ getStars(review.rate) }}</dd>
           </dl>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>超喜欢邹老师的，上课上得好，说话又好听！（</p>
+        <p>{{ review.content }}</p>
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions>
@@ -82,15 +82,31 @@
   </app-layout-content-main>
   <app-layout-content-aside>
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let item of course.meta; let i = index" [expanded]="i == 0"
-                           class="course-meta-list-item">
+      <mat-expansion-panel *ngIf="course.objectives != null" class="course-meta-list-item">
         <mat-expansion-panel-header>
-          <mat-panel-title>{{ item.name }}</mat-panel-title>
-          <mat-panel-description>{{ item.nameEn }}</mat-panel-description>
+          <mat-panel-title>课程目标</mat-panel-title>
+          <mat-panel-description>Objectives</mat-panel-description>
         </mat-expansion-panel-header>
-        <p class="course-meta-list-item__content">{{ item.content }}</p>
-        <p *ngIf="item.contentEn != null" class="course-meta-list-item__content-en">{{ item.contentEn }}</p>
+        <p class="course-meta-list-item__content">{{ course.objectives }}</p>
+        <p *ngIf="course.objectivesEn != null" class="course-meta-list-item__content-en">{{ course.objectivesEn }}</p>
       </mat-expansion-panel>
+      <mat-expansion-panel *ngIf="course.contents != null" class="course-meta-list-item">
+        <mat-expansion-panel-header>
+          <mat-panel-title>课程内容</mat-panel-title>
+          <mat-panel-description>Contents</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="course-meta-list-item__content">{{ course.contents }}</p>
+        <p *ngIf="course.contentsEn != null" class="course-meta-list-item__content-en">{{ course.contentsEn }}</p>
+      </mat-expansion-panel>
+      <!--      <mat-expansion-panel *ngFor="let item of course.meta; let i = index" [expanded]="i == 0"-->
+      <!--                           class="course-meta-list-item">-->
+      <!--        <mat-expansion-panel-header>-->
+      <!--          <mat-panel-title>{{ item.name }}</mat-panel-title>-->
+      <!--          <mat-panel-description>{{ item.nameEn }}</mat-panel-description>-->
+      <!--        </mat-expansion-panel-header>-->
+      <!--        <p class="course-meta-list-item__content">{{ item.content }}</p>-->
+      <!--        <p *ngIf="item.contentEn != null" class="course-meta-list-item__content-en">{{ item.contentEn }}</p>-->
+      <!--      </mat-expansion-panel>-->
     </mat-accordion>
   </app-layout-content-aside>
 </app-layout-content>

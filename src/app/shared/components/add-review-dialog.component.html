@@ -9,7 +9,19 @@
     </button>
     <span class="score">{{ score }}分</span>
   </div>
-  <mat-form-field appearance="standard" class="content-field" floatLabel="always">
+  <mat-form-field appearance="standard">
+    <mat-label>选课时间</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let trimester of trimesters" [value]="trimester">{{ trimester }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>教师</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let teacher of teachers" [value]="teacher">{{ teacher }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard" class="content-field">
     <mat-label>评价正文</mat-label>
     <textarea matInput matTextareaAutosize placeholder="对课程的看法和评价"></textarea>
   </mat-form-field>

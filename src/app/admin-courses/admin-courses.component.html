@@ -1,0 +1,42 @@
+<app-layout-content-fluid>
+  <app-layout-card-fluid>
+    <app-layout-content>
+      <app-layout-content-main>
+        <h1>课程管理</h1>
+        <div>管理员页面</div>
+      </app-layout-content-main>
+    </app-layout-content>
+  </app-layout-card-fluid>
+</app-layout-content-fluid>
+<app-layout-content class="layout-content-2">
+  <app-layout-content-main>
+    <app-layout-card>
+      <mat-card-content>
+        <table [dataSource]="coursesData" mat-table class="table">
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell>#</th>
+            <td *matCellDef="let row" mat-cell>{{ row.id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="courseName">
+            <th *matHeaderCellDef mat-header-cell>课程名称</th>
+            <td *matCellDef="let row" mat-cell>{{ row.courseName }}<br />{{ row.courseNameEn }}</td>
+          </ng-container>
+          <ng-container matColumnDef="courseNumber">
+            <th *matHeaderCellDef mat-header-cell>课程名称</th>
+            <td *matCellDef="let row" mat-cell>{{ row.courseNumber }}</td>
+          </ng-container>
+          <tr *matHeaderRowDef="coursesDisplayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: coursesDisplayedColumns;" mat-row></tr>
+        </table>
+        <mat-paginator #coursePaginator [length]="coursesLength" [pageSize]="20" hidePageSize></mat-paginator>
+      </mat-card-content>
+    </app-layout-card>
+  </app-layout-content-main>
+  <app-layout-content-aside>
+    <app-layout-card>
+      <mat-card-content>
+        123
+      </mat-card-content>
+    </app-layout-card>
+  </app-layout-content-aside>
+</app-layout-content>

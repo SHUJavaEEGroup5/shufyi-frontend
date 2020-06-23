@@ -1,7 +1,7 @@
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http'; // apply interceptor
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // apply interceptor
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,7 @@ import {
   AuthInterceptorService,
   CardComponent,
   CardFluidComponent,
+  ConfirmWishDialogComponent,
   ContentAsideComponent,
   ContentComponent,
   ContentFluidComponent,
@@ -17,7 +18,6 @@ import {
   HeaderComponent,
   InterestsComponent,
   SearchComponent,
-  ConfirmWishDialogComponent,
   SharedModule,
 } from './shared';
 import { MatCardModule } from '@angular/material/card';
@@ -29,7 +29,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SignupComponent } from './signup/signup.component';
 import { ValidateEmailComponent } from './validate-email/validate-email.component';
 import { UserCenterComponent } from './user-center/user-center.component';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
@@ -47,11 +46,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseDetailComponent,
+    AdminCoursesComponent,
     HomeComponent,
     LoginComponent,
     SignupComponent,
@@ -69,7 +70,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HeaderComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'serverApp'}),
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,

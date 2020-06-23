@@ -11,3 +11,5 @@ export * from './wish-response';
 export * from './wish-request';
 export * from './confirm-dialog-data';
 export * from './wish-add-request';
+export * from './course';
+export * from './page';
