@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddReviewDialogComponent, ConfirmWishDialogComponent, ReviewFromOne } from '../shared';
-import { CourseService, WishListService } from '../shared/services';
+import {
+  AddReviewDialogComponent,
+  ConfirmDialogData,
+  ConfirmWishDialogComponent,
+  Course,
+  CourseService,
+  ReviewFromOne,
+  WishAddRequest,
+  WishListService,
+} from '../shared';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmDialogData, Course, WishRequest, WishAddRequest } from '../shared/models';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,18 +26,6 @@ export class CourseDetailComponent implements OnInit {
 
   reviews: ReviewFromOne[] = [];
 
-  teachers = [
-    {
-      id: 0,
-      teacherName: '邹国兵',
-    }, {
-      id: 1,
-      teacherName: '宋波',
-    },
-  ];
-
-  selectedTeacherId = -1;
-
   currentCourseId = -1;
 
   constructor(
@@ -41,17 +36,6 @@ export class CourseDetailComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
   ) {}
-
-  get reviewsQueryParams() {
-    return {
-      courseId: 123,
-      teacherId: this.selectedTeacherId,
-    };
-  }
-
-  get t() {
-    return JSON.stringify(this.reviewsQueryParams);
-  }
 
   getStars(rate: number): string {
     const stars = [];
@@ -68,8 +52,13 @@ export class CourseDetailComponent implements OnInit {
   openNewReviewDialog(): void {
     const dialogRef = this.dialog.open(AddReviewDialogComponent, {
       width: '720px',
+      data: {
+        courseId: this.currentCourseId,
+        courseName: this.course.courseName,
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
+      this.reviews = result;
       console.log('The dialog was closed');
     });
   }
@@ -98,21 +87,21 @@ export class CourseDetailComponent implements OnInit {
     // test
     const wishAddRequest = new WishAddRequest(this.currentCourseId);
     this.wishListService.addWish(wishAddRequest)
-        .subscribe(
-            (data) => {
-              this.openNewWishDialog();
-            },
-            (err: HttpErrorResponse) => {
-              console.log(err);
-              if (err.status === 400) {
-                this.snackBar.open(err.error.message, undefined, { duration: 5000 });
-              } else if (err.status > 0) {
-                this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
-              } else {
-                this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
-              }
-            },
-    );
+      .subscribe(
+        (data) => {
+          this.openNewWishDialog();
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.status === 400) {
+            this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+          } else if (err.status > 0) {
+            this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+          } else {
+            this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+          }
+        },
+      );
     // mock
     // this.openNewWishDialog();
   }
@@ -126,10 +115,5 @@ export class CourseDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
-  }
-
-  selectTeacher(id) {
-    this.selectedTeacherId = this.selectedTeacherId === id ? -1 : id;
-    console.log(this.selectedTeacherId);
   }
 }

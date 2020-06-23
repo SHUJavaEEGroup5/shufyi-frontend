@@ -1,4 +1,7 @@
+import { User } from './user';
+
 export class ReviewFromOne {
+  publisher: User;
   courseId: string;
   trimester: string;
   createTime: string;
@@ -22,4 +25,12 @@ export class PaginationReviewFromOne {
 export class PaginationReviewFromMulti {
   reviews: ReviewFromMulti[];
   pageNumber: number;
+}
+
+export class ReviewRequest {
+  courseId: number;
+  rate: number;
+  teacherName: string;
+  trimester: string;
+  content: string;
 }
