@@ -56,14 +56,23 @@ export class ConfirmWishDialogComponent implements OnInit {
 
     remove(courseId: number): void {
         const removedCourse = new WishAddRequest(courseId);
-        const index = this.data.courseSelected.indexOf(removedCourse);
-
+        let index = 0;
+        for (const course of this.data.courseSelected) {
+            if (course.courseId === courseId) {
+                break;
+            }
+            index++;
+        }
+        console.log('index: ' + index);
         if (index >= 0) {
             this.data.courseSelected.splice(index, 1);
             this.data.courses.splice(index, 1);
         }
+        console.log(this.data.courseSelected);
+        console.log(this.data.courses);
     }
     addBatch(): void {
+        console.log('course selected: ' + this.data.courseSelected);
         this.wishListService.addWishBatch(this.data.courseSelected).subscribe(
             (data) => {
                 this.snackBar.open('添加成功！', undefined, { duration: 5000 });

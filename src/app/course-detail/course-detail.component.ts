@@ -159,12 +159,13 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         .subscribe(
             (data) => {
               this.recommendCourses = data;
+              this.recommendSelected = [];
               for (const item of data) {
                 this.recommendSelected.push(new WishAddRequest(item.courseId));
               }
               console.log('courses: ' + this.recommendCourses);
               console.log('selected:' + this.recommendSelected);
-              this.openNewWishDialog();
+              // this.openNewWishDialog();
             },
             (err: HttpErrorResponse) => {
               console.log(err);

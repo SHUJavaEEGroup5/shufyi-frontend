@@ -222,7 +222,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             this.currentPeople = params.get('username');
         });
         // judge whether people here is self
-        this.isSelf = this.user !== undefined && this.currentPeople === this.user.username;
+        this.isSelf = this.user !== undefined && this.user != null && this.currentPeople === this.user.username;
         console.log('user from header ' + this.user);
         this.personalService.getUserInfo(this.currentPeople).subscribe(
             (data) => {
