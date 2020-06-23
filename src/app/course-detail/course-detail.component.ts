@@ -136,6 +136,7 @@ export class CourseDetailComponent implements OnInit {
                 this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
               }
             },
+
         );
   }
 
