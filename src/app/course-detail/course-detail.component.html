@@ -24,8 +24,8 @@
       <app-layout-content-aside class="course-meta-wrapper">
         <p>总体评分：</p>
         <div class="reviews-stat">
-          <span class="score">5.0</span>
-          <span class="stars">★ ★ ★ ★ ★<br /><small>(1人评分)</small></span>
+          <span class="score">{{ getRateNum(totalRate) }}</span>
+          <span class="stars">{{ getStars(totalRate) }}<br /><small>({{ reviews.length }}人评分)</small></span>
         </div>
       </app-layout-content-aside>
     </app-layout-content>
@@ -81,7 +81,7 @@
   </app-layout-content-main>
   <app-layout-content-aside>
     <mat-accordion>
-      <mat-expansion-panel *ngIf="course.objectives != null" class="course-meta-list-item">
+      <mat-expansion-panel *ngIf="course.objectives != null" class="course-meta-list-item" expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>课程目标</mat-panel-title>
           <mat-panel-description>Objectives</mat-panel-description>

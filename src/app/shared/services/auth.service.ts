@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthTokenRequest, AuthTokenResponse, User } from '../models';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private user = new Subject<User | null>();
+  private user = new BehaviorSubject<User | null>(JSON.parse(window.localStorage.getItem('sf_user')));
 
   constructor(
     private http: HttpClient,

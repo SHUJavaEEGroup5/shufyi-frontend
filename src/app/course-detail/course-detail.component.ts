@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   AddReviewDialogComponent,
+  AuthService,
   ConfirmDialogData,
   ConfirmWishDialogComponent,
   Course,
   CourseService,
   ReviewFromOne,
+  User,
   WishAddRequest,
   WishListService,
 } from '../shared';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,35 +24,72 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.scss'],
 })
-export class CourseDetailComponent implements OnInit {
+export class CourseDetailComponent implements OnInit, OnDestroy {
   course?: Course = null;
 
   reviews: ReviewFromOne[] = [];
 
   currentCourseId = -1;
 
+  user?: User = null;
+
+  userSubscription: Subscription;
+
   constructor(
     public dialog: MatDialog,
+    private authService: AuthService,
     private courseService: CourseService,
     private route: ActivatedRoute,
     private wishListService: WishListService,
     private snackBar: MatSnackBar,
     private router: Router,
-  ) {}
+  ) {
+    this.userSubscription = this.authService.getUser().subscribe((user) => this.user = user);
+  }
+
+  get totalRate() {
+    let sum = 0;
+    let count = 0;
+    this.reviews.forEach((review) => {
+      sum += review.rate;
+      count += 1;
+    });
+    return count === 0 ? 0 : sum / count;
+  }
+
+  getRateNum(rate: number): string {
+    return rate.toFixed(1);
+  }
 
   getStars(rate: number): string {
     const stars = [];
     let i;
-    for (i = 0; i < rate; i++) {
+    for (i = 1; i < rate; i++) {
       stars.push('★');
     }
-    if (rate - i >= 0.45) {
+    if (rate - i + 1 >= 0.25 && rate - i + 1 < 0.75) {
       stars.push('☆');
+    } else {
+      stars.push('★');
     }
     return stars.join(' ');
   }
 
   openNewReviewDialog(): void {
+    let flag = false;
+    if (this.user == null) {
+      this.snackBar.open('请先登录！', undefined, { duration: 5000 });
+      return;
+    }
+    this.reviews.forEach((review) => {
+      if (review.publisher.id === this.user.id) {
+        flag = true;
+      }
+    });
+    if (flag) {
+      this.snackBar.open('你已经发表过评价了！', undefined, { duration: 5000 });
+      return;
+    }
     const dialogRef = this.dialog.open(AddReviewDialogComponent, {
       width: '720px',
       data: {
@@ -58,8 +98,9 @@ export class CourseDetailComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.reviews = result;
-      console.log('The dialog was closed');
+      if (result != null) {
+        this.reviews = result;
+      }
     });
   }
 
@@ -115,5 +156,9 @@ export class CourseDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }
