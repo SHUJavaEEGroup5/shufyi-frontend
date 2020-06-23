@@ -1,3 +1,3 @@
 export class UsernameRequest{
-    username: string;
+    name: string;
 }
