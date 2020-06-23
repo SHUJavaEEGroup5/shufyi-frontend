@@ -193,44 +193,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         { label: '音乐院', majors: this.majors22 },
     ];
 
-    // mock
-    userInfoMock: UserInfo = {
-        username: '一只迷路的小猫',
-        major: '计算机科学',
-        grade: '2018',
-        email: 'xxx@shu.edu.cn',
-        src: 'https://placekitten.com/199/200'
-    };
-
-    reviewMock1: ReviewFromOne = {
-        courseId: '1',
-        trimester: '19-20春',
-        teacherName: '邹国兵',
-        rate: 5,
-        content:  '超喜欢邹老师的，上课上得好，说话又好听！（',
-        upVoterNum: 35,
-        createTime: '123456'
-    };
-
-    reviewMock2: ReviewFromOne = {
-        courseId: '2',
-        trimester: '19-20冬',
-        teacherName: '邹国兵',
-        rate: 7,
-        content:  '超喜欢邹老师的，上课上得好，说话又好听！（',
-        upVoterNum: 99,
-        createTime: '1234'
-    };
-
-    wishMock1: WishResponse =  { id: '0', courseId: '1', courseName: 'Java EE', createTime: '456' };
-    wishMock2: WishResponse =  { id: '1', courseId: '2', courseName: '毛泽东思想概论xxxxxxxx', createTime: '456' };
-    wishMock3: WishResponse =  { id: '2', courseId: '3', courseName: 'Java EE', createTime: '456' };
-    wishListMock: WishResponse[] = [
-        this.wishMock1,
-        this.wishMock2,
-        this.wishMock3,
-    ];
-
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -353,7 +315,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         );
         // mock
         // this.reviews = this.reviewsMock;
-        console.log(this.reviews);
+        console.log('reviews:' + this.reviews);
     }
 
     getStars(rate: number): string {
@@ -480,5 +442,29 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 }
             }
         }
+    }
+
+    changeVoteStatus(review: ReviewFromOne) {
+        this.reviewService.reverseVoteStatus(review.reviewId).subscribe(
+            (data) => {
+                console.log(data);
+                if (review.isVoted) {
+                    this.snackBar.open('取消成功', undefined, {duration: 2000});
+                } else {
+                    this.snackBar.open('赞同成功', undefined, {duration: 2000});
+                }
+                review.isVoted = !review.isVoted;
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
+                if (err.status === 400) {
+                    this.snackBar.open(err.error.message, undefined, {duration: 5000});
+                } else if (err.status > 0) {
+                    this.snackBar.open(`${err.statusText} (${err.status})`, undefined, {duration: 5000});
+                } else {
+                    this.snackBar.open('出现了网络错误，请稍后重试…', undefined, {duration: 5000});
+                }
+            },
+        )
     }
 }

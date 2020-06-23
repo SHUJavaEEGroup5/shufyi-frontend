@@ -72,9 +72,10 @@
                         </mat-card-content>
                         <mat-divider></mat-divider>
                         <mat-card-actions>
-                            <button class="icon-btn" color="accent" mat-stroked-button>
+                            <button (click)="changeVoteStatus(review)" class="icon-btn" color="accent" mat-stroked-button>
                                 <mat-icon>arrow_drop_up</mat-icon>
-                                {{review.upVoterNum}}人觉得有用
+                                <div *ngIf="review.isVoted">你</div><div *ngIf="review.isVoted&&review.upVoterNum > 1">和{{review.upVoterNum - 1}}人</div><div *ngIf="review.isVoted">觉得有用</div>
+                                <div *ngIf="!review.isVoted">{{review.upVoterNum}}人觉得有用</div>
                             </button>
                         </mat-card-actions>
                     </app-layout-card>

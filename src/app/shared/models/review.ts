@@ -2,6 +2,7 @@ import { User } from './user';
 
 export class ReviewFromOne {
   publisher: User;
+  reviewId?: string;
   courseId: string;
   trimester: string;
   createTime: string;
@@ -9,6 +10,7 @@ export class ReviewFromOne {
   rate: number;
   upVoterNum: number;
   content: string;
+  isVoted: boolean;
 }
 
 export class ReviewFromMulti extends ReviewFromOne {
