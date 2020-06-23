@@ -37,8 +37,9 @@ export class ConfirmWishDialogComponent implements OnInit {
 
     ngOnInit() {
         // mock
-        this.data.courses = this.coursesMock;
-        this.data.courseSelected = this.courseSelectedMock;
+        // this.data.courses = this.coursesMock;
+        // this.data.courseSelected = this.courseSelectedMock;
+        console.log(this.data);
     }
 
     constructor(
@@ -59,6 +60,7 @@ export class ConfirmWishDialogComponent implements OnInit {
 
         if (index >= 0) {
             this.data.courseSelected.splice(index, 1);
+            this.data.courses.splice(index, 1);
         }
     }
     addBatch(): void {
