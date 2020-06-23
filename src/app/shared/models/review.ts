@@ -7,7 +7,7 @@ export class ReviewFromOne {
   rate: number;
   upVoterNum: number;
   content: string;
-  isVoted: boolean;
+  voted: boolean;
 }
 
 export class ReviewFromMulti extends ReviewFromOne {

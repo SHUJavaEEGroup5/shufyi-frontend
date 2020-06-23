@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddReviewDialogComponent, ConfirmWishDialogComponent, ReviewFromOne } from '../shared';
-import { CourseService, WishListService } from '../shared/services';
+import {AddReviewDialogComponent, ConfirmWishDialogComponent, RecommendResponse, ReviewFromOne} from '../shared';
+import { CourseService, WishListService, PersonalService } from '../shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogData, Course, WishRequest, WishAddRequest } from '../shared/models';
 import { switchMap } from 'rxjs/operators';
@@ -33,11 +33,15 @@ export class CourseDetailComponent implements OnInit {
 
   currentCourseId = -1;
 
+  recommendCourses: RecommendResponse[];
+  recommendSelected: WishAddRequest[];
+  
   constructor(
     public dialog: MatDialog,
     private courseService: CourseService,
     private route: ActivatedRoute,
     private wishListService: WishListService,
+    private personalService: PersonalService,
     private snackBar: MatSnackBar,
     private router: Router,
   ) {}
@@ -117,11 +121,34 @@ export class CourseDetailComponent implements OnInit {
     // this.openNewWishDialog();
   }
 
+  getRecommend() {
+    this.personalService.recommend()
+        .subscribe(
+            (data) => {
+              this.recommendCourses = data;
+              for (const item of data) {
+                this.recommendSelected.push(new WishAddRequest(item.courseId));
+              }
+              this.openNewWishDialog();
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+              if (err.status === 400) {
+                this.snackBar.open(err.error.message, undefined, { duration: 5000 });
+              } else if (err.status > 0) {
+                this.snackBar.open(`${err.statusText} (${err.status})`, undefined, { duration: 5000 });
+              } else {
+                this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
+              }
+            },
+        );
+  }
+
   openNewWishDialog(): void {
     const dialogRef = this.dialog.open(ConfirmWishDialogComponent, {
       width: '720px',
       data: new ConfirmDialogData(this.course.courseName, this.course.courseNumber,
-        this.course.credits, this.course.type, this.course.college),
+        this.course.credits, this.course.type, this.course.college, this.recommendSelected, this.recommendCourses),
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
