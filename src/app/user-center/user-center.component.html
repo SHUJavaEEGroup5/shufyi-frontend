@@ -84,7 +84,7 @@
                     </app-layout-card>
                 </div>
                 <app-layout-card class="review-card">
-                    <mat-paginator (page)="pageChangeEvent($event)"
+                    <mat-paginator (page)="pageEvent = pageChangeEvent($event)"
                                    [length]="totalRecordNumber"
                                    [pageSize]="pageSize"
                                    [pageSizeOptions]="pageSizeOptions"
@@ -159,10 +159,10 @@
             </mat-selection-list>
             <mat-action-list *ngIf="isSelf&&wishList&&wishListIds&&wishListIds!==[]&&wishList!==[]">
                 <button (click)="completeWishes()" mat-list-item aria-label="完成这些心愿">
-                    <mat-icon color="accent">check_circle</mat-icon> 已实现
+                    <mat-icon>check_box</mat-icon> 完成
                 </button>
                 <button (click)="removeWishes(wishListIds)" mat-list-item aria-label="移除这些心愿">
-                    <mat-icon>delete</mat-icon> 放弃
+                    <mat-icon>cancel</mat-icon> 放弃
                 </button>
             </mat-action-list>
         </app-layout-card>

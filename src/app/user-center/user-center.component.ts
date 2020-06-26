@@ -244,6 +244,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 } else {
                     this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
                 }
+                this.router.navigateByUrl('/', { replaceUrl: true }).then((r) => {});
             },
         );
         // mock
@@ -277,9 +278,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 // 更新username
                 this.user.username = this.usernameForm.value.username;
                 this.authService.setUser(this.user);
-                this.router.navigateByUrl('/', { replaceUrl: true }).then(() => {
-                    this.snackBar.open('设置成功 开始探索吧！', undefined, { duration: 2000 });
-                });
+                this.snackBar.open('设置成功', undefined, { duration: 2000 });
             },
             (err: HttpErrorResponse) => {
                 this.isLoading = false;
@@ -295,19 +294,21 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         );
     }
 
-    pageChangeEvent(event) {
+    pageChangeEvent(event?: PageEvent) {
         this.pageSize = event.pageSize;
         this.pageNo = event.pageIndex;
         this.updateReviews();
+        return event;
     }
 
     updateReviews() {
+        this.isLoading = true;
         // console.log('from: ' + this.currentPeople + ' pageIndex: ' + this.pageEvent.pageIndex + ' pageSize: ' + this.pageSize);
-        this.reviewService.getReviewFromOne(this.currentPeople, 0, 10).subscribe(
+        this.reviewService.getReviewFromOne(this.currentPeople, this.pageNo, this.pageSize).subscribe(
             (data) => {
                 console.log(data);
-                this.reviews = data;
-                this.totalRecordNumber = data.length;
+                // this.reviews = data;
+                // this.totalRecordNumber = data.length;
                 this.isLoading = false;
                 console.log('isLoading:' + this.isLoading);
             },
