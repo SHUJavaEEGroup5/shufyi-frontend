@@ -101,7 +101,7 @@
             <mat-tab *ngIf="isSelf" label="账号管理">
                 <div>
                     <div>修改用户名</div>
-                    <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
+                    <form [formGroup]="usernameForm" >
                         <mat-form-field>
                             <mat-label>用户名</mat-label>
                             <input #username formControlName="username" matInput type="text">
