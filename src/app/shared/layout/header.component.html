@@ -6,7 +6,27 @@
     <!--    <a mat-flat-button routerLink="/">核通/通选</a>-->
     <div class="spacer"></div>
     {{ user && user.username }}
-    <button (click)="logout()" *ngIf="user != null" mat-flat-button>注销</button>
+    <button *ngIf="user != null" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="jumpTo('/')" mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <span>主页</span>
+      </button>
+      <button (click)="jumpTo('/people/' + user.username)" mat-menu-item>
+        <mat-icon> person_pin</mat-icon>
+        <span>个人中心</span>
+      </button>
+      <button (click)="jumpTo('/admin/courses')" mat-menu-item>
+        <mat-icon>people</mat-icon>
+        <span>课程中心</span>
+      </button>
+      <button (click)="logout()" mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>注销</span>
+      </button>
+    </mat-menu>
     <a *ngIf="user == null" color="primary" mat-stroked-button routerLink="/login">登录</a>
     <a *ngIf="user == null" color="primary" mat-flat-button routerLink="/signup">注册</a>
   </div>

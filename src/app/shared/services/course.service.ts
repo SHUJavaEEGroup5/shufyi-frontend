@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Course, Page, ReviewFromOne } from '../models';
+import { Course, Page, ReviewFromMulti } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class CourseService {
   }
 
   getCourseReviews(id: number) {
-    return this.http.get<ReviewFromOne[]>(`/api/course/${id}/reviews`);
+    return this.http.get<ReviewFromMulti[]>(`/api/course/${id}/reviews`);
   }
 
   createCourse(course: Course) {

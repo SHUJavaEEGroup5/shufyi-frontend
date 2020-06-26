@@ -336,7 +336,11 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     personalPage(name: string) {
-        this.router.navigateByUrl('/people/' + name, { replaceUrl: true }).then((r) => {});
+        this.router.navigateByUrl('/people/' + name, { replaceUrl: false }).then((r) => {});
+    }
+
+    courseDetailPage(name: string) {
+        this.router.navigateByUrl('/courses/' + name, { replaceUrl: false }).then((r) => {});
     }
 
     completeWishes() {

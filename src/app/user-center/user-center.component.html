@@ -52,10 +52,10 @@
                 </app-layout-card>
                 <div *ngIf="reviews !== undefined">
                     <app-layout-card *ngFor="let review of reviews" class="review-card">
-                        <mat-card-header class="review-card__meta">
-                            <img (click)="personalPage(userInfo.username)" [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
+                        <mat-card-header (click)="courseDetailPage(review.courseId)" class="review-card__meta">
+                            <img [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
                             <mat-card-title>
-                                {{userInfo.username}}
+                                {{userInfo.username}} 对 {{review.courseName}} 的评价
                             </mat-card-title>
                             <mat-card-subtitle>
                                 <dl>
