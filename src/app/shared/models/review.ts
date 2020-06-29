@@ -1,9 +1,9 @@
 import { User } from './user';
 
 export class ReviewFromOne {
-  publisher: User;
   reviewId?: string;
   courseId: string;
+  courseName: string;
   trimester: string;
   createTime: string;
   teacherName: string;
@@ -14,8 +14,8 @@ export class ReviewFromOne {
 }
 
 export class ReviewFromMulti extends ReviewFromOne {
-  alt: string;
   src: string;
+  reviewerName: string;
 }
 
 // 具体看JPA格式调整

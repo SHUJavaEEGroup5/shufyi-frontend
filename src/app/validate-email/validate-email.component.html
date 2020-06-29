@@ -28,7 +28,7 @@
           </mat-step>
           <mat-step [completed]="isSetUsername">
             <ng-template matStepLabel>设置用户名</ng-template>
-            <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
+            <form [formGroup]="usernameForm" >
               <mat-form-field>
                 <mat-label>用户名</mat-label>
                   <input #username formControlName="username" matInput type="text">

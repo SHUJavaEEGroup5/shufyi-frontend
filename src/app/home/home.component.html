@@ -19,9 +19,26 @@
       <button (click)="personalPage()" color="primary" mat-raised-button>
         其他人主页
       </button>
+      <br>
       <button (click)="courseManagePage()" color="primary" mat-raised-button>
         课程管理
       </button>
+    </app-layout-card>
+    <app-layout-card>
+      <button (click)="updateReviews()" mat-icon-button color="primary" aria-label="最近评论">
+        <mat-icon color="warn">whatshot</mat-icon>
+        最近评论
+      </button>
+    </app-layout-card>
+    <app-layout-card>
+      <mat-card-header *ngFor="let review of reviews" class="review-card__meta">
+        <mat-card-title>
+          <span>{{ review.reviewerName }} 在 {{review.courseId}} 说: <p>{{ review.content.substring(0, 10)+'...'}}</p></span>
+          <button (click)="jumpToCourse(review.courseName)" mat-raised-button>
+          详情
+          </button>
+        </mat-card-title>
+      </mat-card-header>
     </app-layout-card>
   </app-layout-content-aside>
 </app-layout-content>

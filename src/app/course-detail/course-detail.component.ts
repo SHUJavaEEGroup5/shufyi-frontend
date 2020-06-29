@@ -7,12 +7,14 @@ import {
   ConfirmWishDialogComponent,
   Course,
   CourseService,
-  ReviewFromOne,
   User,
   WishAddRequest,
   WishListService,
   PersonalService,
+  ReviewService,
   RecommendResponse,
+  ReviewFromMulti,
+  ReviewFromOne,
 } from '../shared';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
@@ -29,7 +31,7 @@ import { Subscription } from 'rxjs';
 export class CourseDetailComponent implements OnInit, OnDestroy {
   course?: Course = null;
 
-  reviews: ReviewFromOne[] = [];
+  reviews: ReviewFromMulti[] = [];
 
   currentCourseId = -1;
 
@@ -47,6 +49,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private wishListService: WishListService,
     private personalService: PersonalService,
+    private reviewService: ReviewService,
     private snackBar: MatSnackBar,
     private router: Router,
   ) {
@@ -57,8 +60,9 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     let sum = 0;
     let count = 0;
     this.reviews.forEach((review) => {
-      sum += review.rate;
+      sum += parseInt(review.rate.toString(10), 10);
       count += 1;
+      // console.log('sum: ' + sum + ', count: ' + count);
     });
     return count === 0 ? 0 : sum / count;
   }
@@ -88,7 +92,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
       return;
     }
     this.reviews.forEach((review) => {
-      if (review.publisher.id === this.user.id) {
+      if (review.reviewerName === this.user.username) {
         flag = true;
       }
     });
@@ -111,6 +115,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getRecommend();
     this.route.paramMap.pipe(
       switchMap((params) => {
         this.currentCourseId = parseInt(params.get('id'), 10);
@@ -158,10 +163,13 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         .subscribe(
             (data) => {
               this.recommendCourses = data;
+              this.recommendSelected = [];
               for (const item of data) {
                 this.recommendSelected.push(new WishAddRequest(item.courseId));
               }
-              this.openNewWishDialog();
+              console.log('courses: ' + this.recommendCourses);
+              console.log('selected:' + this.recommendSelected);
+              // this.openNewWishDialog();
             },
             (err: HttpErrorResponse) => {
               console.log(err);
@@ -173,6 +181,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                 this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
               }
             },
+
         );
   }
 
@@ -189,5 +198,36 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+  }
+
+  changeVoteStatus(review: ReviewFromOne) {
+    // to-do login require
+    this.reviewService.reverseVoteStatus(review.reviewId).subscribe(
+        (data) => {
+          console.log(data);
+          if (review.voted) {
+            review.upVoterNum--;
+            this.snackBar.open('取消成功', undefined, {duration: 2000});
+          } else {
+            review.upVoterNum++;
+            this.snackBar.open('赞同成功', undefined, {duration: 2000});
+          }
+          review.voted = !review.voted;
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.status === 400) {
+            this.snackBar.open(err.error.message, undefined, {duration: 5000});
+          } else if (err.status > 0) {
+            this.snackBar.open(`${err.statusText} (${err.status})`, undefined, {duration: 5000});
+          } else {
+            this.snackBar.open('出现了网络错误，请稍后重试…', undefined, {duration: 5000});
+          }
+        },
+    );
+  }
+
+  personalPage(name: string) {
+    this.router.navigateByUrl('/people/' + name, { replaceUrl: true }).then((r) => {});
   }
 }

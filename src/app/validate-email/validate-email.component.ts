@@ -71,13 +71,14 @@ export class ValidateEmailComponent implements OnInit, OnDestroy {
   }
 
   submitUsername() {
-    this.personalService.setUserName(this.usernameForm.value).subscribe(
+    console.log('user name to be set: ', this.usernameForm.value.username);
+    this.personalService.setUserName(this.usernameForm.value.username).subscribe(
       (data) => {
         this.isLoading = false;
         console.log(data);
         this.isSetUsername = true;
         // 更新username
-        this.user.username = this.usernameForm.value;
+        this.user.username = this.usernameForm.value.username;
         this.authService.setUser(this.user);
         this.router.navigateByUrl('/', { replaceUrl: true }).then(() => {
           this.snackBar.open('设置成功 开始探索吧！', undefined, { duration: 2000 });

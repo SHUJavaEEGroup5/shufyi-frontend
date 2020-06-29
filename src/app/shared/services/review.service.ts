@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaginationReviewFromMulti, ReviewFromOne, ReviewRequest, ReviewVoteRequest } from '../models';
+import {PaginationReviewFromMulti, ReviewFromMulti, ReviewFromOne, ReviewRequest, ReviewVoteRequest} from '../models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -28,5 +28,9 @@ export class ReviewService {
   reverseVoteStatus(reviewId: string): Observable<void> {
     const reviewVoteRequest = new ReviewVoteRequest(reviewId);
     return this.http.put<void>('/api/review/vote', reviewVoteRequest);
+  }
+
+  getLatestReviews(): Observable<ReviewFromMulti[]> {
+    return this.http.get<ReviewFromMulti[]>('/api/review');
   }
 }

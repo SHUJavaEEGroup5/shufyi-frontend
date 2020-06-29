@@ -24,8 +24,8 @@ export class PersonalService {
     return this.http.get<InterestsRequest>('/api/interest');
   }
 
-  setUserName(username: UsernameRequest) {
-    return this.http.post<void>('/api/user/username', username);
+  setUserName(username: string) {
+    return this.http.patch<void>('/api/user/username', new UsernameRequest(username));
   }
 
   // 根据姓名 返回自己或别人信息

@@ -52,9 +52,9 @@
     </app-layout-card>
     <app-layout-card *ngFor="let review of reviews" class="review-card">
       <mat-card-header class="review-card__meta">
-        <img alt="头像" mat-card-avatar src="https://placekitten.com/200/200" />
+        <img (click)="personalPage(review.reviewerName)" [alt]="review.reviewerName + '的头像'" mat-card-avatar [src]="review.src" />
         <mat-card-title>
-          {{ review.publisher.username }}
+          {{ review.reviewerName }}
         </mat-card-title>
         <mat-card-subtitle>
           <dl>
@@ -72,9 +72,10 @@
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions>
-        <button class="icon-btn" color="accent" mat-stroked-button>
+        <button (click)="changeVoteStatus(review)" class="icon-btn" color="accent" mat-stroked-button>
           <mat-icon>arrow_drop_up</mat-icon>
-          有用
+          <span *ngIf="review.voted">你</span><span *ngIf="review.voted&&review.upVoterNum > 1">和{{review.upVoterNum - 1}}人</span><span *ngIf="review.voted">觉得有用</span>
+          <span *ngIf="!review.voted">{{review.upVoterNum}}人觉得有用</span>
         </button>
       </mat-card-actions>
     </app-layout-card>

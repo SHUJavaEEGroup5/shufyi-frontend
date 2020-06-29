@@ -222,7 +222,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
             this.currentPeople = params.get('username');
         });
         // judge whether people here is self
-        this.isSelf = this.user !== undefined && this.currentPeople === this.user.username;
+        this.isSelf = this.user !== undefined && this.user != null && this.currentPeople === this.user.username;
         console.log('user from header ' + this.user);
         this.personalService.getUserInfo(this.currentPeople).subscribe(
             (data) => {
@@ -244,6 +244,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 } else {
                     this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
                 }
+                this.router.navigateByUrl('/', { replaceUrl: true }).then((r) => {});
             },
         );
         // mock
@@ -268,17 +269,19 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     submitUsername() {
-        if (!this.isSelf) { return; }
-        this.personalService.setUserName(this.usernameForm.value).subscribe(
+        console.log('user name to be set: ', this.usernameForm.value.username);
+        this.personalService.setUserName(this.usernameForm.value.username).subscribe(
             (data) => {
+                this.isLoading = false;
                 console.log(data);
                 this.isSetUsername = true;
                 // 更新username
-                this.user.username = this.usernameForm.value;
+                this.user.username = this.usernameForm.value.username;
                 this.authService.setUser(this.user);
-                this.snackBar.open('更新成功', undefined, { duration: 2000 });
+                this.snackBar.open('设置成功', undefined, { duration: 2000 });
             },
             (err: HttpErrorResponse) => {
+                this.isLoading = false;
                 console.log(err);
                 if (err.status === 400) {
                     this.snackBar.open(err.error.message, undefined, { duration: 5000 });
@@ -291,19 +294,21 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         );
     }
 
-    pageChangeEvent(event) {
+    pageChangeEvent(event?: PageEvent) {
         this.pageSize = event.pageSize;
         this.pageNo = event.pageIndex;
         this.updateReviews();
+        return event;
     }
 
     updateReviews() {
+        this.isLoading = true;
         // console.log('from: ' + this.currentPeople + ' pageIndex: ' + this.pageEvent.pageIndex + ' pageSize: ' + this.pageSize);
-        this.reviewService.getReviewFromOne(this.currentPeople, 0, 10).subscribe(
+        this.reviewService.getReviewFromOne(this.currentPeople, this.pageNo, this.pageSize).subscribe(
             (data) => {
                 console.log(data);
-                this.reviews = data;
-                this.totalRecordNumber = data.length;
+                // this.reviews = data;
+                // this.totalRecordNumber = data.length;
                 this.isLoading = false;
                 console.log('isLoading:' + this.isLoading);
             },
@@ -336,7 +341,11 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     }
 
     personalPage(name: string) {
-        this.router.navigateByUrl('/people/' + name, { replaceUrl: true }).then((r) => {});
+        this.router.navigateByUrl('/people/' + name, { replaceUrl: false }).then((r) => {});
+    }
+
+    courseDetailPage(name: string) {
+        this.router.navigateByUrl('/courses/' + name, { replaceUrl: false }).then((r) => {});
     }
 
     completeWishes() {
@@ -345,6 +354,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.wishListService.completeWish(this.wishListIds).subscribe(
             (data) => {
                 this.snackBar.open(' 添加成功！', undefined, { duration: 2000 });
+                this.updateWishList();
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -357,7 +367,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                 }
             },
         );
-        this.updateWishList();
     }
 
     removeWishes(ids) {
@@ -366,6 +375,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.wishListService.deleteWish(ids).subscribe(
             (data) => {
                 this.snackBar.open(' 移除成功！', undefined, { duration: 2000 });
+                this.updateWishList();
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -377,8 +387,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
                     this.snackBar.open('出现了网络错误，请稍后重试…', undefined, { duration: 5000 });
                 }
             },
-        );
-        this.updateWishList();
+        )
     }
 
     updateWishList() {

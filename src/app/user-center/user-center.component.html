@@ -52,10 +52,10 @@
                 </app-layout-card>
                 <div *ngIf="reviews !== undefined">
                     <app-layout-card *ngFor="let review of reviews" class="review-card">
-                        <mat-card-header class="review-card__meta">
-                            <img (click)="personalPage(userInfo.username)" [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
+                        <mat-card-header (click)="courseDetailPage(review.courseId)" class="review-card__meta">
+                            <img [alt]="userInfo.username + '的头像'" mat-card-avatar [src]="userInfo.src" />
                             <mat-card-title>
-                                {{userInfo.username}}
+                                {{userInfo.username}} 对 {{review.courseName}} 的评价
                             </mat-card-title>
                             <mat-card-subtitle>
                                 <dl>
@@ -84,7 +84,7 @@
                     </app-layout-card>
                 </div>
                 <app-layout-card class="review-card">
-                    <mat-paginator (page)="pageChangeEvent($event)"
+                    <mat-paginator (page)="pageEvent = pageChangeEvent($event)"
                                    [length]="totalRecordNumber"
                                    [pageSize]="pageSize"
                                    [pageSizeOptions]="pageSizeOptions"
@@ -101,7 +101,7 @@
             <mat-tab *ngIf="isSelf" label="账号管理">
                 <div>
                     <div>修改用户名</div>
-                    <form (ngSubmit)="submitUsername()" [formGroup]="usernameForm" >
+                    <form [formGroup]="usernameForm" >
                         <mat-form-field>
                             <mat-label>用户名</mat-label>
                             <input #username formControlName="username" matInput type="text">
@@ -159,10 +159,10 @@
             </mat-selection-list>
             <mat-action-list *ngIf="isSelf&&wishList&&wishListIds&&wishListIds!==[]&&wishList!==[]">
                 <button (click)="completeWishes()" mat-list-item aria-label="完成这些心愿">
-                    <mat-icon color="accent">check_circle</mat-icon> 已实现
+                    <mat-icon>check_box</mat-icon> 完成
                 </button>
                 <button (click)="removeWishes(wishListIds)" mat-list-item aria-label="移除这些心愿">
-                    <mat-icon>delete</mat-icon> 放弃
+                    <mat-icon>cancel</mat-icon> 放弃
                 </button>
             </mat-action-list>
         </app-layout-card>

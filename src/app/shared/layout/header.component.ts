@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../services';
 import { Subscription } from 'rxjs';
 import { User } from '../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) platformId,
     private authService: AuthService,
+    private router: Router,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.userSubscription = this.authService.getUser().subscribe((user) => this.user = user);
@@ -44,4 +46,9 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       window.removeEventListener('scroll', this.scrollListener);
     }
   }
+
+  jumpTo(to: string) {
+    this.router.navigateByUrl(to, { replaceUrl: false }).then((r) => {});
+  }
+
 }

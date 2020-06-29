@@ -48,6 +48,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatTabsModule,
         MatPaginatorModule,
         MatDialogModule,
+        MatMenuModule,
     ],
   providers: [
     {

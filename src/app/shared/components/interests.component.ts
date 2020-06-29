@@ -252,15 +252,15 @@ export class InterestsComponent implements OnInit {
     this.personalService.setInterests(this.infoToPost)
       .subscribe(
         (data) => {
-          console.log(data);
+          console.log('success: ' + JSON.stringify(data));
           this.snackBar.open('保存成功！', undefined, { duration: 2000 });
           this.isCompleted = true;
         },
         (err: HttpErrorResponse) => {
-          this.InfoForm.enable();
-          this.gradeRef.nativeElement.select();
-          this.majorRef.nativeElement.focus();
-          console.log(err);
+          console.log('fail: ' + JSON.stringify(err));
+          // this.InfoForm.enable();
+          // this.gradeRef.nativeElement.select();
+          // this.majorRef.nativeElement.focus();
           if (err.status === 400) {
             this.snackBar.open(err.error.message, undefined, { duration: 5000 });
           } else if (err.status > 0) {

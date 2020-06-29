@@ -1,3 +1,6 @@
 export class UsernameRequest{
-    username: string;
+    name: string;
+    constructor(newName: string) {
+        this.name = newName;
+    }
 }

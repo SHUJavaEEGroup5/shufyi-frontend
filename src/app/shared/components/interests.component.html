@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="InfoForm">
+<form [formGroup]="InfoForm">
   <h4>填写个人兴趣 作为推荐依据</h4>
   <mat-form-field floatLabel="auto">
     <input [matDatepicker]="grade" [max]="maxDate" formControlName="grade" matInput placeholder="选择入学年份">
